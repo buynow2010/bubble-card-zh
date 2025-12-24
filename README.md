@@ -1,9 +1,9 @@
 # Bubble Card 汉化版
 
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
-[![Version](https://img.shields.io/badge/version-3.1.0--beta.7--zh-blue.svg)](https://github.com/buynow2010/bubble-card-zh/releases)
+[![Version](https://img.shields.io/badge/version-3.1.0--beta.8--zh-blue.svg)](https://github.com/buynow2010/bubble-card-zh/releases)
 
-这是 [Bubble Card](https://github.com/Clooos/Bubble-Card) 的中文汉化版本，基于 v3.1.0-beta.7 版本。
+这是 [Bubble Card](https://github.com/Clooos/Bubble-Card) 的中文汉化版本，基于 v3.1.0-beta.8 版本。
 
 ## 安装
 
