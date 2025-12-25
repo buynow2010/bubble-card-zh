@@ -1,5 +1,6 @@
 {
   "name": "Bubble Card 汉化版",
+  "type": "plugin",
   "content_in_root": false,
   "render_readme": true,
   "filename": "bubble-card.js",
