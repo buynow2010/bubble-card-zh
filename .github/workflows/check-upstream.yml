@@ -1,0 +1,94 @@
+name: 检查上游更新
+
+on:
+  schedule:
+    # 每天北京时间早上 9 点检查 (UTC 1:00)
+    - cron: '0 1 * * *'
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  check-upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 获取上游最新 Release
+        id: upstream
+        run: |
+          # 获取原版仓库最新 release tag
+          LATEST=$(curl -s https://api.github.com/repos/Clooos/Bubble-Card/releases/latest | jq -r '.tag_name')
+          echo "latest_tag=$LATEST" >> $GITHUB_OUTPUT
+          echo "上游最新版本: $LATEST"
+
+      - name: 获取当前汉化版本
+        id: current
+        run: |
+          # 从当前仓库的最新 tag 提取版本
+          CURRENT=$(git describe --tags --abbrev=0 2>/dev/null || echo "none")
+          # 提取基础版本号 (去掉 -zh 后缀)
+          BASE_VERSION=$(echo "$CURRENT" | sed 's/-zh$//')
+          echo "current_tag=$CURRENT" >> $GITHUB_OUTPUT
+          echo "base_version=$BASE_VERSION" >> $GITHUB_OUTPUT
+          echo "当前汉化版本: $CURRENT (基于 $BASE_VERSION)"
+
+      - name: 对比版本
+        id: compare
+        run: |
+          UPSTREAM="${{ steps.upstream.outputs.latest_tag }}"
+          BASE="${{ steps.current.outputs.base_version }}"
+          
+          if [ "$UPSTREAM" != "$BASE" ]; then
+            echo "needs_update=true" >> $GITHUB_OUTPUT
+            echo "🔔 发现新版本! 上游: $UPSTREAM, 当前基于: $BASE"
+          else
+            echo "needs_update=false" >> $GITHUB_OUTPUT
+            echo "✅ 已是最新版本"
+          fi
+
+      - name: 创建更新提醒 Issue
+        if: steps.compare.outputs.needs_update == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const upstream = '${{ steps.upstream.outputs.latest_tag }}';
+            const current = '${{ steps.current.outputs.current_tag }}';
+            
+            // 检查是否已有相同的 Issue
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: '上游更新'
+            });
+            
+            const existingIssue = issues.data.find(i => i.title.includes(upstream));
+            if (existingIssue) {
+              console.log('已存在相同版本的 Issue，跳过创建');
+              return;
+            }
+            
+            // 创建新 Issue
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🔄 上游更新: Bubble Card ${upstream}`,
+              body: `## 检测到 Bubble Card 原版更新\n\n` +
+                    `| 项目 | 版本 |\n` +
+                    `|------|------|\n` +
+                    `| **上游最新版本** | \`${upstream}\` |\n` +
+                    `| **当前汉化版本** | \`${current}\` |\n\n` +
+                    `### 原版 Release\n` +
+                    `🔗 https://github.com/Clooos/Bubble-Card/releases/tag/${upstream}\n\n` +
+                    `### 下一步\n` +
+                    `1. 查看原版更新内容\n` +
+                    `2. 拉取上游更新并汉化\n` +
+                    `3. 发布新的汉化版本\n\n` +
+                    `---\n` +
+                    `*此 Issue 由 GitHub Actions 自动创建*`,
+              labels: ['上游更新', '待处理']
+            });
+            
+            console.log('已创建更新提醒 Issue');
