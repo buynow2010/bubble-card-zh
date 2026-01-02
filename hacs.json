@@ -1,7 +1,7 @@
 {
   "name": "Bubble Card 汉化版",
   "type": "plugin",
-  "content_in_root": false,
+  "content_in_root": true,
   "render_readme": true,
   "filename": "bubble-card.js",
   "homeassistant": "2023.9.0"
