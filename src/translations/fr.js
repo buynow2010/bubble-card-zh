@@ -1,0 +1,25 @@
+export default {
+  "cards": {
+    "calendar": {
+      "busy": "Occupé",
+      "all_day": "Journée"
+    }
+  },
+  "editor": {
+    "calendar": {
+      "entity": "Entité",
+      "color": "Couleur",
+      "days": "Jours max.",
+      "limit": "Limite",
+      "list_of_calendars": "Liste des calendriers",
+      "show_end": "Voir l'heure de fin",
+      "show_progress": "Voir la progression",
+      "show_place": "Voir le lieu",
+      "text_scrolling": "Effet de défilement du texte",
+      "name": "Calendrier",
+      "new_calendar": "Ajouter un autre calendrier",
+      "remove_calendar": "Supprimer ce calendrier",
+      "settings": "Paramètres du calendrier"
+    }
+  }
+}
