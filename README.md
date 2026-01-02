@@ -1,6 +1,6 @@
 # Bubble Card 汉化版
 
-这是 [Bubble Card](https://github.com/Clooos/Bubble-Card) 的中文汉化版本，基于 `v3.1.0-beta.8` 版本进行汉化。
+这是 [Bubble Card](https://github.com/Clooos/Bubble-Card) 的中文汉化版本，基于 `v3.1.0-rc.2` 版本进行汉化。
 
 ## 安装方法
 
@@ -31,7 +31,7 @@
 
 ## 基于版本
 
-- 原始版本: [Clooos/Bubble-Card v3.1.0-beta.8](https://github.com/Clooos/Bubble-Card/releases/tag/v3.1.0-beta.8)
+- 原始版本: [Clooos/Bubble-Card v3.1.0-rc.2](https://github.com/Clooos/Bubble-Card/releases/tag/v3.1.0-rc.2)
 
 ## 致谢
 
