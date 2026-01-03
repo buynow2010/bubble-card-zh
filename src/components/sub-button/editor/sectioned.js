@@ -236,33 +236,33 @@ function makeGroupEditor(editor, group, groupIndex, sectionKey) {
     >
       <h4 slot="header">
         <ha-icon icon="mdi:format-list-group"></ha-icon>
-        ${group.name || `Group ${groupIndex + 1}`}
+        ${group.name || `组 ${groupIndex + 1}`}
         <div class="button-container" @click=${(e) => e.stopPropagation()} @mousedown=${(e) => e.stopPropagation()} @touchstart=${(e) => e.stopPropagation()}>
           <ha-button-menu corner="BOTTOM_START" menuCorner="START" fixed @closed=${(e) => e.stopPropagation()} @click=${(e) => e.stopPropagation()}>
-            <mwc-icon-button slot="trigger" class="icon-button header" title="Options">
+            <mwc-icon-button slot="trigger" class="icon-button header" title="选项">
               <ha-icon style="display: flex" icon="mdi:dots-vertical"></ha-icon>
             </mwc-icon-button>
             <mwc-list-item graphic="icon" ?disabled=${!canMoveUp} @click=${(e) => { e.stopPropagation(); if (canMoveUp) moveGroup(-1); }}>
               <ha-icon icon="mdi:arrow-up" slot="graphic"></ha-icon>
-              Move up
+              上移
             </mwc-list-item>
             <mwc-list-item graphic="icon" ?disabled=${!canMoveDown} @click=${(e) => { e.stopPropagation(); if (canMoveDown) moveGroup(1); }}>
               <ha-icon icon="mdi:arrow-down" slot="graphic"></ha-icon>
-              Move down
+              下移
             </mwc-list-item>
             <li divider role="separator"></li>
             <mwc-list-item graphic="icon" @click=${(e) => { e.stopPropagation(); copyGroup(e); }}>
               <ha-icon icon="mdi:content-copy" slot="graphic"></ha-icon>
-              Copy group
+              复制组
             </mwc-list-item>
             <mwc-list-item graphic="icon" @click=${(e) => { e.stopPropagation(); cutGroup(e); }}>
               <ha-icon icon="mdi:content-cut" slot="graphic"></ha-icon>
-              Cut group
+              剪切组
             </mwc-list-item>
             <li divider role="separator"></li>
             <mwc-list-item graphic="icon" class="warning" @click=${(e) => { e.stopPropagation(); removeGroup(e); }}>
               <ha-icon icon="mdi:delete" slot="graphic"></ha-icon>
-              Delete
+              删除
             </mwc-list-item>
           </ha-button-menu>
         </div>
@@ -282,7 +282,7 @@ function makeGroupEditor(editor, group, groupIndex, sectionKey) {
           <ha-expansion-panel outlined>
             <h4 slot="header">
               <ha-icon icon="mdi:view-grid"></ha-icon>
-              Group layout
+              组布局
             </h4>
             <div class="content">
               <ha-form
@@ -356,10 +356,10 @@ function makeGroupEditor(editor, group, groupIndex, sectionKey) {
                   <div class="bubble-info">
                     <h4 class="bubble-section-title">
                       <ha-icon icon="mdi:information-outline"></ha-icon>
-                      Buttons alignment locked by sub-button settings
+                      按钮对齐已被子按钮设置锁定
                     </h4>
                     <div class="content">
-                      <p>One or more sub-buttons explicitly enable "Fill available width". To change alignment, first disable "Fill available width" in those sub-buttons.</p>
+                      <p>一个或多个子按钮显式启用了"填充可用宽度"。要更改对齐方式，请先在这些子按钮中禁用"填充可用宽度"。</p>
                     </div>
                   </div>
                 ` : '';
@@ -367,7 +367,7 @@ function makeGroupEditor(editor, group, groupIndex, sectionKey) {
             </div>
           </ha-expansion-panel>
 
-          <h4 class="group-buttons-header">Group sub-buttons</h4>
+          <h4 class="group-buttons-header">组子按钮</h4>
           ${Array.isArray(group.group) ? group.group.map((button, buttonIndex) => {
         if (!button) return null;
 
@@ -423,7 +423,7 @@ function makeGroupEditor(editor, group, groupIndex, sectionKey) {
           moveButton,
           copyButton,
           cutButton,
-          { panelKeyPrefix: `${sectionKey}_group_${groupIndex}_button`, buttonTitle: button.name || `Button ${buttonIndex + 1}`, arrayLength: buttonsLength }
+          { panelKeyPrefix: `${sectionKey}_group_${groupIndex}_button`, buttonTitle: button.name || `按钮 ${buttonIndex + 1}`, arrayLength: buttonsLength }
         );
       }) : null}
 
@@ -448,7 +448,7 @@ function makeGroupEditor(editor, group, groupIndex, sectionKey) {
         }, subButtonsValueChanged);
       }}>
               <ha-icon icon="mdi:shape-square-rounded-plus"></ha-icon>
-              Add sub-button
+              添加子按钮
             </button>
           </div>
         `)}
@@ -505,7 +505,7 @@ function makeSectionList(editor, sectionKey) {
     updateSectionArray(editor, sectionKey, (arr) => {
       const converted = convertIndividualButtonsToGroup(arr);
       const groupCount = converted.filter(i => i && Array.isArray(i.group)).length;
-      return [...converted, { name: `Group ${groupCount + 1}`, buttons_layout: 'inline', group: [] }];
+      return [...converted, { name: `组 ${groupCount + 1}`, buttons_layout: 'inline', group: [] }];
     }, subButtonsValueChanged);
   };
 
@@ -514,15 +514,15 @@ function makeSectionList(editor, sectionKey) {
       <div class="bubble-info">
         <h4 class="bubble-section-title">
           <ha-icon icon="mdi:information-outline"></ha-icon>
-          Groups mode
-          <div class="bubble-info-dismiss bubble-badge" @click=${dismiss} title="Dismiss" 
+          分组模式
+          <div class="bubble-info-dismiss bubble-badge" @click=${dismiss} title="关闭" 
             style="display: inline-flex; align-items: center; position: absolute; right: 16px; padding: 0 8px; cursor: pointer;">
             <ha-icon icon="mdi:close" style="margin: 0;"></ha-icon>
-            Dismiss
+            关闭
           </div>
         </h4>
         <div class="content">
-          <p>You are now in <b>groups mode</b>. All sub-buttons must be inside a group to ensure consistent ordering. You can rename, reorder, or delete groups as needed.</p>
+          <p>您现在处于<b>分组模式</b>。所有子按钮必须在组内以确保一致的排序。您可以根据需要重命名、重新排序或删除组。</p>
         </div>
       </div>
     ` : ''}
@@ -560,7 +560,7 @@ function makeSectionList(editor, sectionKey) {
       moveButton,
       copyButton,
       cutButton,
-      { panelKeyPrefix: `${sectionKey}_button`, buttonTitle: `Button ${index + 1}${item.name ? ` - ${item.name}` : ''}`, arrayLength: targetArrLength }
+      { panelKeyPrefix: `${sectionKey}_button`, buttonTitle: `按钮 ${index + 1}${item.name ? ` - ${item.name}` : ''}`, arrayLength: targetArrLength }
     );
   })}
 
@@ -580,21 +580,21 @@ function makeSectionList(editor, sectionKey) {
       ${hasGroups ? html`
         <button class="icon-button" @click=${() => { addGroup(); }}>
           <ha-icon icon="mdi:format-list-group-plus"></ha-icon>
-          Add group
+          添加组
         </button>
       ` : html`
         <ha-button-menu corner="BOTTOM_START" menuCorner="START" fixed @closed=${(e) => e.stopPropagation()} @click=${(e) => e.stopPropagation()}>
           <button slot="trigger" class="icon-button add-menu-trigger">
             <ha-icon icon="mdi:plus"></ha-icon>
-            Add
+            添加
           </button>
           <mwc-list-item graphic="icon" @click=${() => { addButton(); }}>
             <ha-icon icon="mdi:shape-square-rounded-plus" slot="graphic"></ha-icon>
-            Add sub-button
+            添加子按钮
           </mwc-list-item>
           <mwc-list-item graphic="icon" @click=${() => { addGroup(); }}>
             <ha-icon icon="mdi:format-list-group-plus" slot="graphic"></ha-icon>
-            Add group
+            添加组
           </mwc-list-item>
         </ha-button-menu>
       `}
@@ -741,13 +741,13 @@ export function makeSectionedSubButtonsPanel(editor) {
           <div class="bubble-info warning">
             <h4 class="bubble-section-title">
               <ha-icon icon="mdi:alert-outline"></ha-icon>
-              Rows configuration detected
+              检测到行数配置
             </h4>
             <div class="content">
-              <p>The card height (rows) is explicitly set in your configuration. This will prevent automatic row adjustments when sub-buttons are added (for example, when adding bottom sub-buttons). Click the button below to remove the override and let Bubble Card auto-calculate the rows.</p>
+              <p>卡片高度（行数）已在您的配置中显式设置。这将阻止添加子按钮时自动调整行数（例如，添加底部子按钮时）。点击下方按钮移除覆盖并让 Bubble Card 自动计算行数。</p>
               <button class="icon-button" @click="${editor._removeRowsOverrideAndRecalculate}">
                 <ha-icon icon="mdi:autorenew"></ha-icon>
-                Remove override and auto-calculate
+                移除覆盖并自动计算
               </button>
             </div>
           </div>
@@ -774,7 +774,7 @@ export function makeSectionedSubButtonsPanel(editor) {
           }
         }
       }]}
-                  .computeLabel=${() => 'Main buttons position'}
+                  .computeLabel=${() => '主按钮位置'}
                   @value-changed=${(ev) => {
         editor._valueChanged({
           target: { configValue: 'main_buttons_position' },
@@ -783,15 +783,15 @@ export function makeSectionedSubButtonsPanel(editor) {
       }}
               ></ha-form>
               ${editor._renderConditionalContent(isMainButtonsBottom, html`
-                  <ha-formfield .label="Full width action buttons">
+                  <ha-formfield .label="全宽动作按钮">
                       <ha-switch
-                          aria-label="Full width action buttons"
+                          aria-label="全宽动作按钮"
                           .checked="${mainButtonsFullWidth}"
                           .configValue="${"main_buttons_full_width"}"
                           @change="${editor._valueChanged}"
                       ></ha-switch>
                       <div class="mdc-form-field">
-                          <label class="mdc-label">Full width action buttons</label> 
+                          <label class="mdc-label">全宽动作按钮</label> 
                       </div>
                   </ha-formfield>
                   ${editor._renderConditionalContent(!mainButtonsFullWidth, html`
@@ -812,7 +812,7 @@ export function makeSectionedSubButtonsPanel(editor) {
             }
           }
         }]}
-                          .computeLabel=${() => 'Main buttons alignment'}
+                          .computeLabel=${() => '主按钮对齐'}
                           @value-changed=${(ev) => {
           editor._valueChanged({
             target: { configValue: 'main_buttons_alignment' },
@@ -857,10 +857,10 @@ export function makeSectionedSubButtonsPanel(editor) {
                 <div class="bubble-info warning">
                   <h4 class="bubble-section-title">
                     <ha-icon icon="mdi:alert-outline"></ha-icon>
-                    Bottom sub-buttons and layout
+                    底部子按钮和布局
                   </h4>
                   <div class="content">
-                    <p>Adding bottom sub-buttons will automatically switch this card to the "Large" layout (this is the new recommended layout). This notice will disappear once you add bottom sub-buttons.</p>
+                    <p>添加底部子按钮将自动将此卡片切换到"大卡片"布局（这是新的推荐布局）。添加底部子按钮后，此通知将消失。</p>
                   </div>
                 </div>
               `)}

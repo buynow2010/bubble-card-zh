@@ -3,11 +3,11 @@ import { fireEvent } from '../tools/utils.js';
 import { yamlKeysMap, initializeModules } from './registry.js';
 import { getTextFromMap } from './utils.js';
 import { makeModuleStore } from './store.js';
-import { 
-  renderModuleEditorForm, 
-  editModule, 
-  deleteModule, 
-  initModuleEditor 
+import {
+  renderModuleEditorForm,
+  editModule,
+  deleteModule,
+  initModuleEditor
 } from './module-editor.js';
 import { installManualModule } from './install.js';
 import { checkModuleUpdates } from './store.js';
@@ -26,15 +26,15 @@ const FORCE_UNSUPPORTED_STORAGE_KEY = 'bubble-card-force-unsupported-modules';
 
 // Function to detect if sl-tab-group is available in the current HA version
 function isSlTabGroupAvailable() {
-  return typeof customElements !== 'undefined' && 
-         customElements.get('sl-tab-group') !== undefined;
+  return typeof customElements !== 'undefined' &&
+    customElements.get('sl-tab-group') !== undefined;
 }
 
 // Detect if the new ha-tab-group component is available
 function isHaTabGroupAvailable() {
   return typeof customElements !== 'undefined' &&
-         customElements.get('ha-tab-group') !== undefined &&
-         customElements.get('ha-tab-group-tab') !== undefined;
+    customElements.get('ha-tab-group') !== undefined &&
+    customElements.get('ha-tab-group-tab') !== undefined;
 }
 
 // Select the tab implementation the editor should render
@@ -145,29 +145,29 @@ export function isModuleGlobal(moduleId, hass) {
 export function shouldApplyModule(context, moduleId) {
   // Get the configured modules from the card config
   const configModules = context._config?.modules || [];
-  
+
   // Convert to array if it's a string
   const modulesList = Array.isArray(configModules) ? configModules : [configModules];
-  
+
   // Check if the module is explicitly excluded with !moduleId syntax
   if (modulesList.includes(`!${moduleId}`)) {
     return false;
   }
-  
+
   // Check if the module is explicitly included in the card's config
   if (modulesList.includes(moduleId)) {
     return true;
   }
-  
+
   // Check if it's a global module
   return isModuleGlobal(moduleId, context.hass);
 }
 
 function _getFilteredAndSortedModules(context) {
   if (!yamlKeysMap || yamlKeysMap.size === 0) return [];
-  
+
   let modules = Array.from(yamlKeysMap.keys());
-  
+
   // Filter by search query
   const searchQuery = context._myModulesSearchQuery;
   if (searchQuery && searchQuery.trim()) {
@@ -180,7 +180,7 @@ function _getFilteredAndSortedModules(context) {
       return name.includes(query) || description.includes(query) || creator.includes(query);
     });
   }
-  
+
   // Sort modules - load from localStorage or use 'default' as default
   if (!context._myModulesSortOrder) {
     try {
@@ -191,7 +191,7 @@ function _getFilteredAndSortedModules(context) {
     }
   }
   const sortOrder = context._myModulesSortOrder || 'default';
-  
+
   // Load all timestamps once for performance (single cache access)
   const lastModifiedMap = getAllModulesLastModified();
   const getTimestamp = (moduleId) => {
@@ -200,21 +200,21 @@ function _getFilteredAndSortedModules(context) {
     const timestamp = new Date(lastModified).getTime();
     return isNaN(timestamp) ? 0 : timestamp;
   };
-  
+
   modules.sort((a, b) => {
     // Always put 'default' first regardless of sort order
     if (a === 'default') return -1;
     if (b === 'default') return 1;
-    
+
     const moduleA = getTextFromMap(a);
     const moduleB = getTextFromMap(b);
     const isActiveA = shouldApplyModule(context, a);
     const isActiveB = shouldApplyModule(context, b);
-    
+
     switch (sortOrder) {
       case 'alphabetical':
         return (moduleA.name || a).localeCompare(moduleB.name || b, undefined, { sensitivity: 'base' });
-      
+
       case 'default':
         if (isActiveA !== isActiveB) {
           return isActiveA ? -1 : 1;
@@ -226,7 +226,7 @@ function _getFilteredAndSortedModules(context) {
           return timestampB - timestampA; // Most recent first
         }
         return (moduleA.name || a).localeCompare(moduleB.name || b, undefined, { sensitivity: 'base' });
-      
+
       case 'recent-first':
         const recentTimestampA = getTimestamp(a);
         const recentTimestampB = getTimestamp(b);
@@ -235,7 +235,7 @@ function _getFilteredAndSortedModules(context) {
         }
         // If no timestamp available, fall back to alphabetical
         return (moduleA.name || a).localeCompare(moduleB.name || b, undefined, { sensitivity: 'base' });
-      
+
       default:
         // Fallback to default sort (active first)
         if (isActiveA !== isActiveB) {
@@ -249,7 +249,7 @@ function _getFilteredAndSortedModules(context) {
         return (moduleA.name || a).localeCompare(moduleB.name || b, undefined, { sensitivity: 'base' });
     }
   });
-  
+
   return modules;
 }
 
@@ -388,16 +388,16 @@ export function makeModulesEditor(context) {
   code: ''
   is_global: true
   `;
-    
-  // Install the default module
-  installManualModule(context, defaultModuleYaml)
-    .then(() => {
-      console.info("Default module created automatically");
-      context.requestUpdate();
-    })
-    .catch(error => {
-      console.error("Error creating default module:", error);
-    });
+
+    // Install the default module
+    installManualModule(context, defaultModuleYaml)
+      .then(() => {
+        console.info("Default module created automatically");
+        context.requestUpdate();
+      })
+      .catch(error => {
+        console.error("Error creating default module:", error);
+      });
   }
 
   // Check for available module updates
@@ -407,7 +407,7 @@ export function makeModulesEditor(context) {
     const target = event.target;
     const moduleId = target.configValue;
     const switchToOn = target.checked;
-    
+
     // Ensure context._config.modules is an array
     context._config.modules = Array.isArray(context._config.modules) ? context._config.modules : [];
 
@@ -418,7 +418,7 @@ export function makeModulesEditor(context) {
       // Turning "Apply to this card" ON
       // Remove any explicit exclusion `!moduleId`
       context._config.modules = context._config.modules.filter(item => item !== `!${moduleId}`);
-      
+
       // If the module is NOT global, and not already in modules, add it explicitly
       if (!moduleIsCurrentlyGlobal) {
         if (!context._config.modules.includes(moduleId)) {
@@ -445,7 +445,7 @@ export function makeModulesEditor(context) {
     // Track recently toggled module for smooth UX when sorting by "default"
     const sortOrder = context._myModulesSortOrder || 'default';
     const wasExpanded = context._expandedPanelStates?.[moduleId] === true;
-    
+
     if (sortOrder === 'default') {
       context._recentlyToggledModuleId = moduleId;
       // Preserve expansion state for the toggled module
@@ -462,7 +462,7 @@ export function makeModulesEditor(context) {
 
     fireEvent(context, "config-changed", { config: context._config });
     context.requestUpdate();
-    
+
     // Scroll to the module after update if sorting by default
     if (sortOrder === 'default' && switchToOn) {
       // Use double requestAnimationFrame to ensure DOM is updated
@@ -474,11 +474,11 @@ export function makeModulesEditor(context) {
             if (wasExpanded && !modulePanel.expanded) {
               modulePanel.expanded = true;
             }
-            
+
             // Check if element is already visible in viewport
             const rect = modulePanel.getBoundingClientRect();
             const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
-            
+
             if (!isVisible) {
               modulePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
@@ -504,7 +504,7 @@ export function makeModulesEditor(context) {
       fireEvent(context, "config-changed", { config: context._config });
       context.requestUpdate();
       // Adding a slight delay for the second update to allow HA state to propagate
-      setTimeout(() => context.requestUpdate(), 100); 
+      setTimeout(() => context.requestUpdate(), 100);
     }
   };
 
@@ -551,9 +551,9 @@ export function makeModulesEditor(context) {
         fireEvent(context, "bubble-card-error", { message: "No YAML content provided" });
         return;
       }
-      
+
       await installManualModule(context, yamlContent);
-      
+
       // Reset the form and close it
       context._showManualImportForm = false;
       context._manualYamlContent = '';
@@ -653,7 +653,7 @@ export function makeModulesEditor(context) {
         ${moduleUpdates.hasUpdates && bctAvailable ? html`
           <span class="bubble-badge update-badge" style="margin-left: 8px; font-size: 0.8em; vertical-align: middle; z-index: 7;">
             <ha-icon icon="mdi:arrow-up-circle-outline"></ha-icon>
-            ${moduleUpdates.updateCount} update${moduleUpdates.updateCount > 1 ? 's' : ''} available
+            ${moduleUpdates.updateCount} 个更新可用
           </span>
         ` : ''}
       </h4>
@@ -662,14 +662,14 @@ export function makeModulesEditor(context) {
             <div class="bubble-info warning">
               <h4 class="bubble-section-title">
                 <ha-icon icon="mdi:alert-circle-outline"></ha-icon>
-                Bubble Card Tools required
+                需要 Bubble Card Tools
               </h4>
               <div class="content">
-                ${ (yamlKeysMap && yamlKeysMap.size > 0) || (context.hass && context.hass.states && context.hass.states[MODULES_SENSOR_ENTITY_ID]) ? html`
-                  <p><b>Since v3.1.0, to install, edit or delete modules, and to use the Module Store, please install <a href="https://github.com/Clooos/Bubble-Card-Tools" target="_blank" rel="noopener noreferrer">Bubble Card Tools</a> (everything is explained there).</b></p>
-                  <p>Your existing modules will be automatically migrated once Bubble Card Tools is installed.</p>
+                ${(yamlKeysMap && yamlKeysMap.size > 0) || (context.hass && context.hass.states && context.hass.states[MODULES_SENSOR_ENTITY_ID]) ? html`
+                  <p><b>从 v3.1.0 起，要安装、编辑或删除模块，以及使用模块商店，请安装 <a href="https://github.com/Clooos/Bubble-Card-Tools" target="_blank" rel="noopener noreferrer">Bubble Card Tools</a>（那里有详细说明）。</b></p>
+                  <p>安装 Bubble Card Tools 后，您现有的模块将自动迁移。</p>
                 ` : html`
-                  <p><b>No modules detected yet.</b> To create and manage modules and to use the Module Store, please install <a href="https://github.com/Clooos/Bubble-Card-Tools" target="_blank" rel="noopener noreferrer">Bubble Card Tools</a> (everything is explained there).</p>
+                  <p><b>尚未检测到模块。</b>要创建和管理模块以及使用模块商店，请安装 <a href="https://github.com/Clooos/Bubble-Card-Tools" target="_blank" rel="noopener noreferrer">Bubble Card Tools</a>（那里有详细说明）。</p>
                 `}
               </div>
             </div>
@@ -685,9 +685,9 @@ export function makeModulesEditor(context) {
               <div class="card-content">
                 <h3>
                     <ha-icon icon="mdi:code-json" style="margin: 8px;"></ha-icon>
-                    Import Module from YAML
+                    从 YAML 导入模块
                 </h3>
-                <p style="margin-top: 0;">Paste the complete YAML code of the module:</p>
+                <p style="margin-top: 0;">粘贴模块的完整 YAML 代码：</p>
                 
                 <div class="css-editor-container">
                   <ha-code-editor
@@ -695,8 +695,8 @@ export function makeModulesEditor(context) {
                     .mode=${'yaml'}
                     .autofocus=${true}
                     @value-changed=${(e) => {
-                      context._manualYamlContent = e.detail.value;
-                    }}
+          context._manualYamlContent = e.detail.value;
+        }}
                   ></ha-code-editor>
                 </div>
                 
@@ -705,12 +705,12 @@ export function makeModulesEditor(context) {
                     class="icon-button" 
                     style="flex: 1;"
                     @click=${() => {
-                      context._showManualImportForm = false;
-                      context.requestUpdate();
-                    }}
+          context._showManualImportForm = false;
+          context.requestUpdate();
+        }}
                   >
                     <ha-icon icon="mdi:close"></ha-icon>
-                    Cancel
+                    取消
                   </button>
                   <button 
                     class="icon-button" 
@@ -718,7 +718,7 @@ export function makeModulesEditor(context) {
                     @click=${handleManualImport}
                   >
                     <ha-icon icon="mdi:content-save"></ha-icon>
-                    Import Module
+                    导入模块
                   </button>
                 </div>
                 <hr>
@@ -726,21 +726,21 @@ export function makeModulesEditor(context) {
             </div>
           ` : ''}
 
-          ${context._showNewModuleForm || context._editingModule ? 
-            renderModuleEditorForm(context) : 
-            html`
+          ${context._showNewModuleForm || context._editingModule ?
+        renderModuleEditorForm(context) :
+        html`
             <!-- Search and Sort Controls -->
             <div class="my-modules-controls">
               <div class="my-modules-top-row">
                 <div class="my-modules-search">
                   <ha-textfield
-                    label="Search modules"
+                    label="搜索模块"
                     icon
                     .value=${context._myModulesSearchQuery || ''}
                     @input=${(e) => {
-                      context._myModulesSearchQuery = e.target.value;
-                      context.requestUpdate();
-                    }}
+            context._myModulesSearchQuery = e.target.value;
+            context.requestUpdate();
+          }}
                   >
                     <slot name="prefix" slot="leadingIcon">
                       <ha-icon slot="prefix" icon="mdi:magnify"></ha-icon>
@@ -756,68 +756,68 @@ export function makeModulesEditor(context) {
                       graphic="icon" 
                       ?selected=${currentSortOrder === 'default'}
                       @click=${(e) => {
-                        e.stopPropagation();
-                        context._myModulesSortOrder = 'default';
-                        try {
-                          localStorage.setItem('bubble-card-modules-sort-order', 'default');
-                        } catch (err) {}
-                        context.requestUpdate();
-                      }}>
+            e.stopPropagation();
+            context._myModulesSortOrder = 'default';
+            try {
+              localStorage.setItem('bubble-card-modules-sort-order', 'default');
+            } catch (err) { }
+            context.requestUpdate();
+          }}>
                       <ha-icon icon="mdi:check-circle" slot="graphic"></ha-icon>
-                      Active and recent first
+                      活动和最近优先
                     </mwc-list-item>
                     <mwc-list-item 
                       graphic="icon" 
                       ?selected=${currentSortOrder === 'alphabetical'}
                       @click=${(e) => {
-                        e.stopPropagation();
-                        context._myModulesSortOrder = 'alphabetical';
-                        try {
-                          localStorage.setItem('bubble-card-modules-sort-order', 'alphabetical');
-                        } catch (err) {}
-                        context.requestUpdate();
-                      }}>
+            e.stopPropagation();
+            context._myModulesSortOrder = 'alphabetical';
+            try {
+              localStorage.setItem('bubble-card-modules-sort-order', 'alphabetical');
+            } catch (err) { }
+            context.requestUpdate();
+          }}>
                       <ha-icon icon="mdi:sort-alphabetical-ascending" slot="graphic"></ha-icon>
-                      Alphabetical
+                      字母顺序
                     </mwc-list-item>
                     <mwc-list-item 
                       graphic="icon" 
                       ?selected=${currentSortOrder === 'recent-first'}
                       @click=${(e) => {
-                        e.stopPropagation();
-                        context._myModulesSortOrder = 'recent-first';
-                        try {
-                          localStorage.setItem('bubble-card-modules-sort-order', 'recent-first');
-                        } catch (err) {}
-                        context.requestUpdate();
-                      }}>
+            e.stopPropagation();
+            context._myModulesSortOrder = 'recent-first';
+            try {
+              localStorage.setItem('bubble-card-modules-sort-order', 'recent-first');
+            } catch (err) { }
+            context.requestUpdate();
+          }}>
                       <ha-icon icon="mdi:clock-outline" slot="graphic"></ha-icon>
-                      Recent first
+                      最近优先
                     </mwc-list-item>
                   </ha-button-menu>
                 </div>
               </div>
-              <ha-formfield label="Enable unsupported modules">
+              <ha-formfield label="启用不支持的模块">
                 <ha-switch
                   .checked=${!!context._forceUnsupportedModules}
                   @change=${(e) => {
-                    const nextValue = e.target.checked;
-                    context._forceUnsupportedModules = nextValue;
-                    try {
-                      localStorage.setItem(FORCE_UNSUPPORTED_STORAGE_KEY, nextValue ? 'true' : 'false');
-                    } catch (err) {}
-                    context.requestUpdate();
-                  }}
+            const nextValue = e.target.checked;
+            context._forceUnsupportedModules = nextValue;
+            try {
+              localStorage.setItem(FORCE_UNSUPPORTED_STORAGE_KEY, nextValue ? 'true' : 'false');
+            } catch (err) { }
+            context.requestUpdate();
+          }}
                 ></ha-switch>
               </ha-formfield>
               ${context._forceUnsupportedModules ? html`
                 <div class="bubble-info warning unsupported-modules-warning">
                   <h4 class="bubble-section-title">
                     <ha-icon icon="mdi:alert-circle-outline"></ha-icon>
-                    Use carefully
+                    谨慎使用
                   </h4>
                   <div class="content">
-                    <p>Some modules may work despite being marked as unsupported, while others can fail entirely.</p>
+                    <p>某些模块可能尽管被标记为不支持仍然可以工作，而另一些则可能完全失败。</p>
                   </div>
                 </div>
               ` : ''}
@@ -825,76 +825,76 @@ export function makeModulesEditor(context) {
             
             <!-- Installed Modules List -->
             ${_getFilteredAndSortedModules(context).map((key) => {
-              const {
-                name: label,
-                description,
-                formSchema,
-                supportedCards,
-                unsupportedCard,
-                creator,
-                moduleLink,
-                moduleVersion
-              } = getTextFromMap(key);
-              
-              // Check if the module should be applied to this card
-              const isChecked = shouldApplyModule(context, key);
-              
-              // Check if the module is global
-              const isGlobal = isModuleGlobal(key, context.hass);
+            const {
+              name: label,
+              description,
+              formSchema,
+              supportedCards,
+              unsupportedCard,
+              creator,
+              moduleLink,
+              moduleVersion
+            } = getTextFromMap(key);
 
-              // Determine if the "All cards" button should be disabled and its text/title
-              const hasEditor = formSchema && formSchema.length > 0;
-              const isDefaultModule = key === 'default';
-              const allCardsDisabled = isDefaultModule || hasEditor;
-              let allCardsButtonText = "All cards";
-              
-              // Get the current configuration for the module key
-              const currentConfig = context._config[key];
+            // Check if the module should be applied to this card
+            const isChecked = shouldApplyModule(context, key);
 
-              // Ensure a working copy exists for this key, create if not
-              if (context._workingModuleConfigs[key] === undefined) {
-                  context._workingModuleConfigs[key] = structuredClone(currentConfig ?? {});
-              }
-              // Retrieve the working copy (this reference should be stable across edits from this form)
-              const workingConfig = context._workingModuleConfigs[key];
+            // Check if the module is global
+            const isGlobal = isModuleGlobal(key, context.hass);
 
-              // Use supportedCards if available, otherwise use unsupportedCards for backward compatibility
-              const cardType = context._config.card_type ?? "";
-              let unsupported = false;
-              
-              if (supportedCards && Array.isArray(supportedCards) && supportedCards.length > 0) {
-                unsupported = !supportedCards.includes(cardType);
-              } else {
-                unsupported = unsupportedCard.includes(cardType);
-              }
-              
-              const forceUnsupportedModules = context._forceUnsupportedModules === true;
-              const shouldShowDisabledState = unsupported && !forceUnsupportedModules && !isChecked && !isGlobal && !isDefaultModule;
-              
-              // Get processed schema based on the *current* config for dependency evaluation
-              const processedFormSchema = (formSchema && formSchema.length > 0)
-                ? context._getProcessedSchema(key, formSchema, workingConfig) // Schema depends on WORKING config
-                : [];
-              
-              // Check if this module has an update
-              const hasUpdate = moduleUpdates.modules.some(m => m.id === key) && bctAvailable;
-              const moduleUpdate = hasUpdate ? moduleUpdates.modules.find(m => m.id === key) : null;
+            // Determine if the "All cards" button should be disabled and its text/title
+            const hasEditor = formSchema && formSchema.length > 0;
+            const isDefaultModule = key === 'default';
+            const allCardsDisabled = isDefaultModule || hasEditor;
+            let allCardsButtonText = "所有卡片";
 
-              const isRecentlyToggled = context._recentlyToggledModuleId === key;
-              
-              return html`
+            // Get the current configuration for the module key
+            const currentConfig = context._config[key];
+
+            // Ensure a working copy exists for this key, create if not
+            if (context._workingModuleConfigs[key] === undefined) {
+              context._workingModuleConfigs[key] = structuredClone(currentConfig ?? {});
+            }
+            // Retrieve the working copy (this reference should be stable across edits from this form)
+            const workingConfig = context._workingModuleConfigs[key];
+
+            // Use supportedCards if available, otherwise use unsupportedCards for backward compatibility
+            const cardType = context._config.card_type ?? "";
+            let unsupported = false;
+
+            if (supportedCards && Array.isArray(supportedCards) && supportedCards.length > 0) {
+              unsupported = !supportedCards.includes(cardType);
+            } else {
+              unsupported = unsupportedCard.includes(cardType);
+            }
+
+            const forceUnsupportedModules = context._forceUnsupportedModules === true;
+            const shouldShowDisabledState = unsupported && !forceUnsupportedModules && !isChecked && !isGlobal && !isDefaultModule;
+
+            // Get processed schema based on the *current* config for dependency evaluation
+            const processedFormSchema = (formSchema && formSchema.length > 0)
+              ? context._getProcessedSchema(key, formSchema, workingConfig) // Schema depends on WORKING config
+              : [];
+
+            // Check if this module has an update
+            const hasUpdate = moduleUpdates.modules.some(m => m.id === key) && bctAvailable;
+            const moduleUpdate = hasUpdate ? moduleUpdates.modules.find(m => m.id === key) : null;
+
+            const isRecentlyToggled = context._recentlyToggledModuleId === key;
+
+            return html`
                 <ha-expansion-panel 
                   outlined 
                   class="${shouldShowDisabledState ? 'disabled' : ''} ${isRecentlyToggled ? 'recently-toggled' : ''}"
                   data-module-id="${key}"
                   .expanded=${!!context._expandedPanelStates[key]}
                   @expanded-changed=${(e) => {
-                    // Only handle events from this panel, not from nested expandables
-                    if (e.target.getAttribute('data-module-id') === key) {
-                      context._expandedPanelStates[key] = e.target.expanded;
-                      context.requestUpdate();
-                    }
-                  }}
+                // Only handle events from this panel, not from nested expandables
+                if (e.target.getAttribute('data-module-id') === key) {
+                  context._expandedPanelStates[key] = e.target.expanded;
+                  context.requestUpdate();
+                }
+              }}
                 >
                   <h4 slot="header">
                     <ha-icon
@@ -928,14 +928,14 @@ export function makeModulesEditor(context) {
                               class="bubble-badge toggle-badge ${isChecked ? 'install-button' : 'link-button'}"
                               style="${key === 'default' && isChecked ? 'cursor: default;' : ''} cursor: pointer;"
                               @click=${() => {
-                                const toggleEvent = { 
-                                  target: { 
-                                    checked: !isChecked, 
-                                    configValue: key 
-                                  } 
-                                };
-                                handleValueChanged(toggleEvent);
-                              }}
+                  const toggleEvent = {
+                    target: {
+                      checked: !isChecked,
+                      configValue: key
+                    }
+                  };
+                  handleValueChanged(toggleEvent);
+                }}
                             >
                               <ha-icon icon="mdi:card-outline"></ha-icon>
                               <span>This card</span>
@@ -945,10 +945,10 @@ export function makeModulesEditor(context) {
                               class="bubble-badge toggle-badge ${isGlobal && !hasEditor ? 'update-button' : 'link-button'} ${allCardsDisabled || !bctAvailable ? 'disabled' : ''}"
                               style="cursor: pointer; ${allCardsDisabled || !bctAvailable ? 'opacity: 0.7; cursor: default;' : ''}"
                               @click=${() => {
-                                if (!allCardsDisabled) {
-                                  handleGlobalToggle(key, !isGlobal);
-                                }
-                              }}
+                  if (!allCardsDisabled) {
+                    handleGlobalToggle(key, !isGlobal);
+                  }
+                }}
                               ?disabled=${allCardsDisabled || !bctAvailable}
                             >
                               <ha-icon icon="mdi:cards-outline"></ha-icon>
@@ -959,11 +959,11 @@ export function makeModulesEditor(context) {
                                 class="bubble-badge toggle-badge"
                                 style="padding: 4px;"
                                 @click=${(e) => {
-                                  e.stopPropagation();
-                                  context._helpModuleId = context._helpModuleId === key ? null : key;
-                                  context.requestUpdate();
-                                }}
-                                title="Show help"
+                    e.stopPropagation();
+                    context._helpModuleId = context._helpModuleId === key ? null : key;
+                    context.requestUpdate();
+                  }}
+                                title="显示帮助"
                               >
                                 <ha-icon icon="mdi:help"></ha-icon>
                               </button>
@@ -978,29 +978,29 @@ export function makeModulesEditor(context) {
                               class="icon-button update-button" 
                               style="margin: 0 24px;"
                               @click=${() => {
-                                // Switch to store tab to update the module
-                                context._selectedModuleTab = 1;
-                                context._storeSearchQuery = label;
-                                context.requestUpdate();
-                              }} 
-                              title="Update Module"
+                    // Switch to store tab to update the module
+                    context._selectedModuleTab = 1;
+                    context._storeSearchQuery = label;
+                    context.requestUpdate();
+                  }} 
+                              title="更新模块"
                             >
                               <ha-icon icon="mdi:arrow-up-circle-outline"></ha-icon>
-                              Update
+                              更新
                             </button>
                           ` : ''}
-                          <button class="icon-button ${!bctAvailable ? 'disabled' : ''}" @click=${() => editModule(context, key)} title="Edit Module">
+                          <button class="icon-button ${!bctAvailable ? 'disabled' : ''}" @click=${() => editModule(context, key)} title="编辑模块">
                             <ha-icon icon="mdi:pencil"></ha-icon>
                           </button>
                           ${(() => {
-                            const isFromYamlFile = _isModuleInstalledViaYaml ? _isModuleInstalledViaYaml(key) : false;
-                            // Do not display the delete button for YAML modules or the default module
-                            return !isFromYamlFile && key !== 'default' ? html`
-                              <button class="icon-button ${!bctAvailable ? 'disabled' : ''}" @click=${() => deleteModule(context, key)} title="Delete Module">
+                  const isFromYamlFile = _isModuleInstalledViaYaml ? _isModuleInstalledViaYaml(key) : false;
+                  // Do not display the delete button for YAML modules or the default module
+                  return !isFromYamlFile && key !== 'default' ? html`
+                              <button class="icon-button ${!bctAvailable ? 'disabled' : ''}" @click=${() => deleteModule(context, key)} title="删除模块">
                                 <ha-icon icon="mdi:delete"></ha-icon>
                               </button>
                             ` : '';
-                          })()}
+                })()}
                         </div>
                       </div>
                       <hr>
@@ -1009,19 +1009,19 @@ export function makeModulesEditor(context) {
                         <div class="bubble-info">
                           <h4 class="bubble-section-title">
                             <ha-icon icon="mdi:information-outline"></ha-icon>
-                            Why "All cards" is disabled?
+                            为什么"所有卡片"被禁用？
                           </h4>
                           <div class="content">
-                            <p>Modules with custom editors cannot be applied globally. This feature is reserved for modules that only apply styles.</p>
+                            <p>具有自定义编辑器的模块无法全局应用。此功能保留给仅应用样式的模块。</p>
                           </div>
                         </div>
                       ` : ''}
 
                       ${formSchema.length > 0
-                        ? html`
+                  ? html`
                           <h4 class="${!isChecked ? 'disabled' : ''}">
                             <ha-icon icon="mdi:cog"></ha-icon>
-                            Configuration
+                            配置
                           </h4>
                           <ha-form
                             class="${!isChecked ? 'disabled' : ''}"
@@ -1031,17 +1031,17 @@ export function makeModulesEditor(context) {
                             .computeLabel=${context._computeLabelCallback}
                             .disabled=${!isChecked}
                             @value-changed=${(e) =>
-                              context._valueChangedInHaForm(e, key, formSchema)
-                            }
+                      context._valueChangedInHaForm(e, key, formSchema)
+                    }
                           ></ha-form>
                           <hr>
                         `
-                        : ''}
+                  : ''}
 
                       <div class="bubble-info" style="display: ${!description ? 'none' : ''}">
                         <h4 class="bubble-section-title">
                           <ha-icon icon="mdi:information-outline"></ha-icon>
-                            About this module
+                            关于此模块
                         </h4>
                         <div class="content">
                           ${html`<span .innerHTML=${description}></span>`}
@@ -1049,30 +1049,29 @@ export function makeModulesEditor(context) {
                       </div>
 
                       ${creator || moduleLink || moduleVersion
-                        ? html`
+                  ? html`
                           <h4 class="version module-version">
-                            ${creator ? `Created by ${creator}` : ''}
+                            ${creator ? `作者：${creator}` : ''}
                             <span class="version-number">
-                              ${moduleLink ? html`<a href="${moduleLink}" target="_blank" rel="noopener noreferrer">Module link</a> • ` : ''}
-                              ${moduleVersion || ''}
+                              ${moduleLink ? html`<a href="${moduleLink}" target="_blank" rel="noopener noreferrer">模块链接</a> • ` : ''}                              ${moduleVersion || ''}
                             </span>
                           </h4>
                           `
-                        : ''}
+                  : ''}
                     `)}
                   </div>
                 </ha-expansion-panel>
               `;
-            })}
+          })}
             
             ${_getFilteredAndSortedModules(context).length === 0 ? html`
               <div class="bubble-info">
                 <h4 class="bubble-section-title">
                   <ha-icon icon="mdi:information-outline"></ha-icon>
-                  No modules found
+                  未找到模块
                 </h4>
                 <div class="content">
-                  <p>No modules match your search criteria. Try modifying your search or sort order.</p>
+                  <p>没有模块符合您的搜索条件。请尝试修改您的搜索或排序方式。</p>
                 </div>
               </div>
             ` : ''}
@@ -1082,49 +1081,49 @@ export function makeModulesEditor(context) {
           ${!context._showNewModuleForm && !context._showManualImportForm && !context._editingModule && bctAvailable ? html`
           <div class="module-editor-buttons-container" style="display: flex;">
             <button class="icon-button" style="flex: 1;" @click=${() => {
-              context._showNewModuleForm = true;
-              context._showManualImportForm = false;
-              
-              // Get a unique ID for the new module
-              if (context._generateUniqueModuleId) {
-                context._newModuleTemplate.id = context._generateUniqueModuleId('my_module');
-              }
-              
-              context._editingModule = { ...context._newModuleTemplate };
-              
-              // Prepare modules in configuration if they don't exist
-              if (!context._config.modules) {
-                // No longer add 'default' module by default since it's applied globally
-                context._config.modules = context._config.style_templates || [];
-              }
-              
-              // Add temporarily the module to the list of active modules
-              // We use the ID of the template to start, it will be updated if the user changes it
-              if (!context._config.modules.includes(context._editingModule.id)) {
-                context._config.modules = [...context._config.modules, context._editingModule.id];
-                
-                // Notify the change to apply styles in real-time
-                fireEvent(context, "config-changed", { config: context._config });
-              }
-              
-              context.requestUpdate();
-              
-              setTimeout(() => scrollToModuleForm(context), 0);
-            }}>
+          context._showNewModuleForm = true;
+          context._showManualImportForm = false;
+
+          // Get a unique ID for the new module
+          if (context._generateUniqueModuleId) {
+            context._newModuleTemplate.id = context._generateUniqueModuleId('my_module');
+          }
+
+          context._editingModule = { ...context._newModuleTemplate };
+
+          // Prepare modules in configuration if they don't exist
+          if (!context._config.modules) {
+            // No longer add 'default' module by default since it's applied globally
+            context._config.modules = context._config.style_templates || [];
+          }
+
+          // Add temporarily the module to the list of active modules
+          // We use the ID of the template to start, it will be updated if the user changes it
+          if (!context._config.modules.includes(context._editingModule.id)) {
+            context._config.modules = [...context._config.modules, context._editingModule.id];
+
+            // Notify the change to apply styles in real-time
+            fireEvent(context, "config-changed", { config: context._config });
+          }
+
+          context.requestUpdate();
+
+          setTimeout(() => scrollToModuleForm(context), 0);
+        }}>
               <ha-icon icon="mdi:puzzle-plus"></ha-icon>
-              Create new Module
+              新建模块
             </button>
             
             <button class="icon-button" style="flex: 1;" @click=${() => {
-              context._showManualImportForm = true;
-              context._showNewModuleForm = false;
-              context._manualYamlContent = '';
-              context.requestUpdate();
-              
-              setTimeout(() => scrollToModuleForm(context), 0);
-            }}>
+          context._showManualImportForm = true;
+          context._showNewModuleForm = false;
+          context._manualYamlContent = '';
+          context.requestUpdate();
+
+          setTimeout(() => scrollToModuleForm(context), 0);
+        }}>
               <ha-icon icon="mdi:code-json"></ha-icon>
-              Import from YAML
+              从 YAML 导入
             </button>
           </div>
           ` : ''}
@@ -1133,12 +1132,12 @@ export function makeModulesEditor(context) {
         <div class="bubble-info">
           <h4 class="bubble-section-title">
             <ha-icon icon="mdi:information-outline"></ha-icon>
-            Modules
+            模块
           </h4>
           <div class="content">
-            <p>Modules are really powerful and the best way to apply <a href="https://github.com/Clooos/Bubble-Card#styling" target="_blank" rel="noopener noreferrer">custom styles</a> and/or <a href="https://github.com/Clooos/Bubble-Card#templates" target="_blank" rel="noopener noreferrer">JS templates</a> to your cards, without having to copy/paste the same code over and over again.</p>
-            <p>This makes it easy to change things like the styles of all your cards, and for advanced users, to modify or add features with a real editor.</p>
-            <p><b>If coding isn't your thing</b>, you can also find and install modules made by the community in the <b>Module Store</b>.</p>
+            <p>模块非常强大，是将<a href="https://github.com/Clooos/Bubble-Card#styling" target="_blank" rel="noopener noreferrer">自定义样式</a>和/或 <a href="https://github.com/Clooos/Bubble-Card#templates" target="_blank" rel="noopener noreferrer">JS 模板</a>应用到卡片的最佳方式，无需反复复制粘贴相同代码。</p>
+            <p>这使得更改所有卡片的样式变得很容易，对于高级用户，可以使用真正的编辑器来修改或添加功能。</p>
+            <p><b>如果您不擅长编码</b>，您也可以在<b>模块商店</b>中查找和安装社区制作的模块。</p>
           </div>
         </div>
       </div>
