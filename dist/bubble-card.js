@@ -3211,7 +3211,7 @@
     <ha-expansion-panel outlined>
       <h4 slot="header">
         <ha-icon icon="mdi:puzzle"></ha-icon>
-        Modules
+        模块
         ${i.hasUpdates&&o?l.qy`
           <span class="bubble-badge update-badge" style="margin-left: 8px; font-size: 0.8em; vertical-align: middle; z-index: 7;">
             <ha-icon icon="mdi:arrow-up-circle-outline"></ha-icon>
