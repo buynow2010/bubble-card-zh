@@ -1,0 +1,12 @@
+.bubble-container {
+    overflow: inherit;
+    transition: border 0.3s ease;
+}
+
+.bubble-background {
+    cursor: pointer;
+}
+
+.with-bottom-buttons .bubble-dropdown-container {
+    display: initial !important;
+}
