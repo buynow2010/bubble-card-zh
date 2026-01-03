@@ -45,12 +45,12 @@ export function makeModuleStore(context) {
   // Check if the persistent entity exists
   const entityId = 'sensor.bubble_card_modules';
   const entityExists = context.hass && context.hass.states && context.hass.states[entityId];
-  
+
   // Initialize store settings if not already set
   if (context._storeShowOnlyCompatible === undefined) {
     context._storeShowOnlyCompatible = true; // Set to true by default
   }
-  
+
   // Check if ranking info has been dismissed
   if (context._rankingInfoDismissed === undefined) {
     try {
@@ -72,7 +72,7 @@ export function makeModuleStore(context) {
       if (persisted) _clearPersistedRateLimitWarning();
     }
   }
-  
+
   // Function to dismiss ranking info
   context._dismissRankingInfo = () => {
     context._rankingInfoDismissed = true;
@@ -83,7 +83,7 @@ export function makeModuleStore(context) {
     }
     context.requestUpdate();
   };
-  
+
   // Gate the store on Bubble Card Tools availability, replacing legacy sensor instructions
   const bctAvailable = isBCTAvailableSync();
 
@@ -142,14 +142,14 @@ export function makeModuleStore(context) {
       <div class="bubble-info warning">
         <h4 class="bubble-section-title">
           <ha-icon icon="mdi:alert-circle-outline"></ha-icon>
-          Bubble Card Tools required
+          需要 Bubble Card Tools
         </h4>
         <div class="content">
           ${hasAnyModules ? html`
-            <p><b>To use the Module Store and to install/edit modules, install <code>Bubble Card Tools</code>.</b></p>
-            <p>Existing modules will still be read from legacy sources for compatibility.</p>
+            <p><b>要使用模块商店并安装/编辑模块，请安装 <code>Bubble Card Tools</code>。</b></p>
+            <p>现有模块仍会从旧源读取以保持兼容性。</p>
           ` : html`
-            <p><b>No modules detected yet.</b> To install or edit modules and use the Module Store, install <code>Bubble Card Tools</code>.</p>
+            <p><b>尚未检测到模块。</b>要安装或编辑模块并使用模块商店，请安装 <code>Bubble Card Tools</code>。</p>
           `}
         </div>
       </div>
@@ -192,8 +192,8 @@ export function makeModuleStore(context) {
   if (context._isLoadingStore) {
     // Calculate progress percentage width based on current progress
     const progressWidth = context._loadingProgress || 0;
-    const loadingText = context._loadingStatus || "Loading modules";
-    
+    const loadingText = context._loadingStatus || "加载模块中";
+
     return html`
       <div class="store-loading">
         <div class="bubble-loading-icon">
@@ -224,13 +224,13 @@ export function makeModuleStore(context) {
       <div class="bubble-info error">
         <h4 class="bubble-section-title">
           <ha-icon icon="mdi:alert-circle-outline"></ha-icon>
-          Loading error
+          加载错误
         </h4>
         <div class="content">
-          <p>Could not load modules from GitHub: ${context._storeError}</p>
+          <p>无法从 GitHub 加载模块：${context._storeError}</p>
           <mwc-button @click=${() => _fetchModuleStore(context)}>
             <ha-icon icon="mdi:refresh" style="margin-right: 8px;"></ha-icon>
-            Retry
+            重试
           </mwc-button>
         </div>
       </div>
@@ -248,7 +248,7 @@ export function makeModuleStore(context) {
   if (context._zoomedImage === undefined) {
     context._zoomedImage = null;
   }
-  
+
   // Add a function to handle zooming in/out
   context._toggleImageZoom = (imageUrl) => {
     if (context._zoomedImage === imageUrl) {
@@ -266,29 +266,29 @@ export function makeModuleStore(context) {
         <div class="store-header-top">
           <div class="store-header-title">
             <ha-icon icon="mdi:puzzle-plus-outline"></ha-icon>
-            <span>Module Store</span>
+            <span>模块商店</span>
           </div>
           <div 
             class="store-refresh-button" 
             @click=${() => {
-              // Reset the API call in progress flag to ensure refresh works
-              context._isApiCallInProgress = false;
-              _fetchModuleStore(context, false);
-            }}
-            title="Refresh module list"
+      // Reset the API call in progress flag to ensure refresh works
+      context._isApiCallInProgress = false;
+      _fetchModuleStore(context, false);
+    }}
+            title="刷新模块列表"
           >
             <ha-icon icon="mdi:refresh"></ha-icon>
           </div>
         </div>
         <div class="store-search">
           <ha-textfield
-            label="Search for a module"
+            label="搜索模块"
             icon
             .value=${context._storeSearchQuery || ''}
             @input=${(e) => {
-              context._storeSearchQuery = e.target.value;
-              context.requestUpdate();
-            }}
+      context._storeSearchQuery = e.target.value;
+      context.requestUpdate();
+    }}
           >
             <slot name="prefix" slot="leadingIcon">
               <ha-icon slot="prefix" icon="mdi:magnify"></ha-icon>
@@ -297,13 +297,13 @@ export function makeModuleStore(context) {
         </div>
         <div class="store-filters">
 
-          <ha-formfield label="Show only modules compatible with this card">
+          <ha-formfield label="仅显示与此卡片兼容的模块">
             <ha-switch
               .checked=${context._storeShowOnlyCompatible ?? true}
               @change=${(e) => {
-                context._storeShowOnlyCompatible = e.target.checked;
-                context.requestUpdate();
-              }}
+      context._storeShowOnlyCompatible = e.target.checked;
+      context.requestUpdate();
+    }}
             ></ha-switch>
           </ha-formfield>
         </div>
@@ -314,8 +314,8 @@ export function makeModuleStore(context) {
           <div class="bubble-info-header">
             <h4 class="bubble-section-title">
               <ha-icon icon="mdi:information-outline"></ha-icon>
-              How modules are ranked
-              <div class="bubble-info-dismiss bubble-badge" @click=${context._dismissRankingInfo} title="Dismiss" 
+              模块排名方式
+              <div class="bubble-info-dismiss bubble-badge" @click=${context._dismissRankingInfo} title="关闭" 
                 style="
                   display: inline-flex;
                   align-items: center;
@@ -325,13 +325,13 @@ export function makeModuleStore(context) {
                   cursor: pointer;"
               >
                 <ha-icon icon="mdi:close" style="margin: 0;"></ha-icon>
-                Dismiss
+                关闭
               </div>
             </h4>
           </div>
           <div class="content">
-            <p>Due to a limitation in GitHub's API, only top-level reactions like ❤️ 👍 🚀 on the main discussion post are counted for popularity, along with other factors like recent activity, number of comments, updates...</p>
-            <p><b>Click the "More info" button and show some love there if you find a module useful!</b></p>
+            <p>由于 GitHub API 的限制，只有主讨论帖上的顶级反应（如 ❤️ 👍 🚀）会被计入流行度，还有其他因素如最近活动、评论数量、更新等...</p>
+            <p><b>如果您觉得某个模块有用，请点击"更多信息"按钮并在那里表达您的支持！</b></p>
           </div>
         </div>
       ` : ''}
@@ -341,8 +341,8 @@ export function makeModuleStore(context) {
           <div class="bubble-info-header">
             <h4 class="bubble-section-title">
               <ha-icon icon="mdi:alert-outline"></ha-icon>
-              API rate limit reached
-              <div class="bubble-info-dismiss bubble-badge" @click=${() => { context._rateLimitWarning = false; _clearPersistedRateLimitWarning(); context.requestUpdate(); }} title="Dismiss" 
+              API 请求频率限制
+              <div class="bubble-info-dismiss bubble-badge" @click=${() => { context._rateLimitWarning = false; _clearPersistedRateLimitWarning(); context.requestUpdate(); }} title="关闭" 
                 style="
                   display: inline-flex;
                   align-items: center;
@@ -352,37 +352,36 @@ export function makeModuleStore(context) {
                   cursor: pointer;"
               >
                 <ha-icon icon="mdi:close" style="margin: 0;"></ha-icon>
-                Dismiss
+                关闭
               </div>
             </h4>
           </div>
           <div class="content">
-            <p>GitHub API rate limit was reached. The module list is loaded from cache. ${
-              context._rateLimitResetTime 
-                ? `Please try again in ${_formatTimeRemaining(context._rateLimitResetTime)}.`
-                : 'Please try again later.'
-            }</p>
+            <p>GitHub API 请求频率已达上限。模块列表已从缓存加载。${context._rateLimitResetTime
+        ? `请在 ${_formatTimeRemaining(context._rateLimitResetTime)} 后重试。`
+        : '请稍后重试。'
+      }</p>
           </div>
         </div>
       ` : ''}
 
       <div class="store-modules">
         ${_getFilteredStoreModules(context).map(module => {
-          const isInstalled = _isModuleInstalled(module.id);
-          const isInstalledViaYaml = _isModuleInstalledViaYaml(module.id);
-          const hasUpdate = _hasModuleUpdate(module.id, module.version);
-          
-          // Use supportedCards if available, otherwise use unsupportedCards for backward compatibility
-          const cardType = context._config.card_type ?? "";
-          let isCompatible = true;
-          
-          if (Array.isArray(module.supportedCards)) {
-            isCompatible = module.supportedCards.includes(cardType);
-          } else {
-            isCompatible = !module.unsupportedCards || !module.unsupportedCards.includes(cardType);
-          }
+        const isInstalled = _isModuleInstalled(module.id);
+        const isInstalledViaYaml = _isModuleInstalledViaYaml(module.id);
+        const hasUpdate = _hasModuleUpdate(module.id, module.version);
 
-          return html`
+        // Use supportedCards if available, otherwise use unsupportedCards for backward compatibility
+        const cardType = context._config.card_type ?? "";
+        let isCompatible = true;
+
+        if (Array.isArray(module.supportedCards)) {
+          isCompatible = module.supportedCards.includes(cardType);
+        } else {
+          isCompatible = !module.unsupportedCards || !module.unsupportedCards.includes(cardType);
+        }
+
+        return html`
             <div class="store-module-card">
               <div class="store-module-header ${!isCompatible ? 'warning' : ''}">
                 <div class="bubble-section-title">
@@ -395,12 +394,12 @@ export function makeModuleStore(context) {
                     ${module.userAvatar ? html`
                       <img src="${module.userAvatar}" alt="${module.creator || 'Anonymous'}" class="author-avatar">
                     ` : ''}
-                    <span>by ${module.creator || 'Anonymous'}</span>
+                    <span>作者：${module.creator || '匿名'}</span>
                   </div>
                   <div class="version-container">
-                    ${_isNewModule(module) ? html`<span class="bubble-badge new-badge"><ha-icon icon="mdi:bell-outline"></ha-icon> New</span>` : ''}
-                    ${!isCompatible ? html`<span class="bubble-badge incompatible-badge">Incompatible</span>` : ''}
-                    ${hasUpdate ? html`<span class="bubble-badge update-badge">Update available</span>` : ''}
+                    ${_isNewModule(module) ? html`<span class="bubble-badge new-badge"><ha-icon icon="mdi:bell-outline"></ha-icon> 新</span>` : ''}
+                    ${!isCompatible ? html`<span class="bubble-badge incompatible-badge">不兼容</span>` : ''}
+                    ${hasUpdate ? html`<span class="bubble-badge update-badge">有更新</span>` : ''}
                     ${isInstalledViaYaml ? html`<span class="bubble-badge yaml-badge">YAML</span>` : ''}
                     <span class="bubble-badge version-badge">${module.version || ''}</span>
                   </div>
@@ -415,7 +414,7 @@ export function makeModuleStore(context) {
                   ${module.description ? html`
                     <p class="module-description" .innerHTML=${_formatModuleDescription(module.description)}></p>
                   ` : html`
-                    <p><em>No description</em></p>
+                    <p><em>无描述</em></p>
                   `}
                   ${module.imageUrl ? html`
                     <div class="module-preview-container">
@@ -429,11 +428,11 @@ export function makeModuleStore(context) {
 
                 <div class="store-module-actions bubble-badges">
                   ${isInstalled
-                    ? html`
-                      ${hasUpdate 
-                        ? html`
+            ? html`
+                      ${hasUpdate
+                ? html`
                           ${_requiresManualInstallation(module)
-                            ? html`
+                    ? html`
                               <a 
                                 href="${module.moduleLink}"
                                 target="_blank"
@@ -442,32 +441,32 @@ export function makeModuleStore(context) {
                                 style="cursor: pointer;"
                               >
                                 <ha-icon icon="mdi:arrow-up-circle-outline"></ha-icon>
-                                <span>Update (Manual install)</span>
+                                <span>更新（手动安装）</span>
                               </a>
                             `
-                            : html`
+                    : html`
                               <div 
                                 @click=${() => installOrUpdateModule(context, module)}
                                 class="bubble-badge update-button hoverable"
                                 style="cursor: pointer;"
                               >
                                 <ha-icon icon="mdi:arrow-up-circle-outline"></ha-icon>
-                                <span>Update</span>
+                                <span>更新</span>
                               </div>
                             `
-                          }
-                        ` 
-                        : html`
+                  }
+                        `
+                : html`
                           <div class="bubble-badge installed-button">
                             <ha-icon icon="mdi:check"></ha-icon>
-                            <span>${isInstalledViaYaml ? 'Installed via YAML' : 'Installed'}</span>
+                            <span>${isInstalledViaYaml ? '已通过 YAML 安装' : '已安装'}</span>
                           </div>
                         `
-                      }
-                    ` 
-                    : html`
+              }
+                    `
+            : html`
                       ${_requiresManualInstallation(module)
-                        ? html`
+                ? html`
                           <a
                             href="${module.moduleLink}"
                             target="_blank"
@@ -476,20 +475,20 @@ export function makeModuleStore(context) {
                             style="cursor: pointer;"
                           >
                             <ha-icon icon="mdi:github"></ha-icon>
-                            <span>Manual install</span>
+                            <span>手动安装</span>
                           </a>
                         `
-                        : html`
+                : html`
                           <div
                             @click=${() => installOrUpdateModule(context, module)}
                             class="bubble-badge install-button hoverable"
                             style="cursor: pointer;"
                           >
                             <ha-icon icon="mdi:download"></ha-icon>
-                            <span>Install</span>
+                            <span>安装</span>
                           </div>
                         `
-                      }
+              }
                     `}
                   <a
                     href="${module.moduleLink}"
@@ -498,23 +497,23 @@ export function makeModuleStore(context) {
                     class="bubble-badge link-button"
                   >
                     <ha-icon icon="mdi:github"></ha-icon>
-                    More info / Issue report
+                    更多信息 / 问题反馈
                   </a>
                 </div>
               </div>
             </div>
           `;
-        })}
+      })}
       </div>
 
       ${_getFilteredStoreModules(context).length === 0 ? html`
         <div class="bubble-info">
           <h4 class="bubble-section-title">
             <ha-icon icon="mdi:information-outline"></ha-icon>
-            No modules found
+            未找到模块
           </h4>
           <div class="content">
-            <p>No modules match your search criteria. Try modifying your search or filters.</p>
+            <p>没有模块符合您的搜索条件。请尝试修改搜索或筛选条件。</p>
           </div>
         </div>
       ` : ''}
@@ -535,22 +534,22 @@ export function makeModuleStore(context) {
 function _formatTimeRemaining(resetTimestamp) {
   const now = Date.now();
   const diff = resetTimestamp - now;
-  
+
   if (diff <= 0) return 'now';
-  
+
   const minutes = Math.ceil(diff / 60000);
-  
+
   if (minutes < 60) {
     return `${minutes} minute${minutes > 1 ? 's' : ''}`;
   }
-  
+
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
-  
+
   if (remainingMinutes === 0) {
     return `${hours} hour${hours > 1 ? 's' : ''}`;
   }
-  
+
   return `${hours} hour${hours > 1 ? 's' : ''} and ${remainingMinutes} minute${remainingMinutes > 1 ? 's' : ''}`;
 }
 
@@ -558,13 +557,13 @@ function _getFilteredStoreModules(context) {
   if (!context._storeModules) return [];
 
   let filteredModules = [...context._storeModules];
-  
+
   // Blacklist with reasons (hidden unless already installed, can still be installed manually)
   // The main reason is modules that compete too much with my Patreon modules, as I need this financial support to maintain the project.
   const storeBlacklist = new Map([
     ['smart_icons'], // Competes with "Conditional icon badges" from my Patreon, and covers the same features (even if it is more advanced), sorry!
   ]);
-  
+
   // Apply blacklist
   filteredModules = filteredModules.filter(module => {
     const id = module && module.id;
@@ -587,7 +586,7 @@ function _getFilteredStoreModules(context) {
   // Filter by compatibility
   if (context._storeShowOnlyCompatible) {
     const cardType = context._config.card_type ?? "";
-    
+
     filteredModules = filteredModules.filter(module => {
       // First check if the module has supported cards
       if (module.supportedCards && Array.isArray(module.supportedCards)) {
@@ -614,44 +613,44 @@ function _getFilteredStoreModules(context) {
 
 function sortModulesByRelevance(modules) {
   if (!modules || !Array.isArray(modules)) return [];
-  
+
   // Calculate a score for each module
   const modulesWithScore = modules.map(module => {
     // Initialize base score
     let score = 0;
-    
+
     // Track if module has any popularity or freshness
     let hasPopularity = false;
     let hasFreshness = false;
-    
+
     // Popularity factors
-    
+
     // 1. Number of comments (discussion engagement)
     if (module.comments) {
       score += Math.min(module.comments, 8); // Max 8 points from comments (8 comments)
       hasPopularity = true;
     }
-    
+
     // 2. Reactions (hearts, +1, etc.)
     if (module.reactions?.total_count) {
       score += module.reactions.total_count * 5; // 5 points per reaction
       hasPopularity = true;
     }
-    
+
     // Specifically value heart reactions more
     if (module.reactions?.heart) {
       score += module.reactions.total_count * 10; // 10 points per heart
       hasPopularity = true;
     }
-    
+
     // Freshness factors
-    
+
     // 3. Creation date (newer modules get more points)
     if (module.createdAt) {
       const creationDate = new Date(module.createdAt);
       const now = new Date();
       const ageInDays = (now - creationDate) / (1000 * 60 * 60 * 24);
-      
+
       // Newer modules get more points (max 30 points for modules created in the last 7 days)
       if (ageInDays <= 7) {
         score += 30;
@@ -663,13 +662,13 @@ function sortModulesByRelevance(modules) {
         score += 5;
       }
     }
-    
+
     // 4. Update date (recently updated modules get more points)
     if (module.updated_at) {
       const updateDate = new Date(module.updated_at);
       const now = new Date();
       const lastUpdateInDays = (now - updateDate) / (1000 * 60 * 60 * 24);
-      
+
       // Recently updated modules get more points (max 25 points for updates in the last 7 days)
       if (lastUpdateInDays <= 7) {
         score += 25;
@@ -681,12 +680,12 @@ function sortModulesByRelevance(modules) {
         score += 8;
       }
     }
-    
+
     // Penalty for modules that have neither popularity nor freshness
     if (!hasPopularity && !hasFreshness) {
       score -= 30; // Apply a significant penalty
     }
-    
+
     // Bonus for modules that have both popularity and freshness
     if (hasPopularity && hasFreshness) {
       score += 20; // Bonus for modules that are both popular and fresh
@@ -702,21 +701,21 @@ function sortModulesByRelevance(modules) {
     if (isNew) {
       score += 10000; // Ensure new modules always bubble to the top
     }
-    
+
     return { ...module, relevanceScore: score };
   });
-  
+
   // Sort by score, higher scores first
   return modulesWithScore.sort((a, b) => b.relevanceScore - a.relevanceScore);
 }
 
 function _isNewModule(module) {
   if (!module.createdAt) return false;
-  
+
   const creationDate = new Date(module.createdAt);
   const now = new Date();
   const ageInDays = (now - creationDate) / (1000 * 60 * 60 * 24);
-  
+
   // Consider modules created within the last 14 days as new
   return ageInDays <= 14;
 }
@@ -730,12 +729,12 @@ function _isModuleInstalled(moduleId) {
 export function _isModuleInstalledViaYaml(moduleId) {
   // Check if the module is installed
   if (!_isModuleInstalled(moduleId)) return false;
-  
+
   // Check first with moduleSourceMap if the module comes from the YAML file
   if (moduleSourceMap.has(moduleId)) {
     return moduleSourceMap.get(moduleId) === 'yaml';
   }
-  
+
   // Fallback to the old method (check if it's not in localStorage)
   try {
     const storedModules = JSON.parse(localStorage.getItem('bubble-card-modules') || '{}');
@@ -755,13 +754,13 @@ export function checkModuleUpdates() {
   const installedModules = Array.from(yamlKeysMap.keys());
   const updates = [];
   let updateCount = 0;
-  
+
   // Get modules from store cache
   const cachedData = getCachedModuleData();
   if (!cachedData || !cachedData.modules || !cachedData.modules.length) {
     return { hasUpdates: false, updateCount: 0, modules: [] };
   }
-  
+
   // Check each installed module
   installedModules.forEach(moduleId => {
     // Find module in store
@@ -776,7 +775,7 @@ export function checkModuleUpdates() {
       });
     }
   });
-  
+
   return {
     hasUpdates: updateCount > 0,
     updateCount,
@@ -797,20 +796,20 @@ function _hasModuleUpdate(moduleId, storeVersion) {
 // Detect if a module has incompatible YAML that requires manual installation
 function _requiresManualInstallation(module) {
   if (!module || !module.yamlContent) return true; // If no YAML, manual installation required
-  
+
   const yamlContent = module.yamlContent.trim();
   if (!yamlContent) return true;
-  
+
   try {
     // Try to parse the YAML
     const parsedYaml = jsyaml.load(yamlContent);
-    
+
     if (!parsedYaml || typeof parsedYaml !== 'object') {
       return true; // Invalid YAML
     }
-    
+
     const keys = Object.keys(parsedYaml);
-    
+
     // If the YAML contains multiple modules at the root
     if (keys.length > 1) {
       let moduleCount = 0;
@@ -820,21 +819,21 @@ function _requiresManualInstallation(module) {
           moduleCount++;
         }
       }
-      
+
       if (moduleCount > 1) {
         return true; // Multiple modules in the same YAML
       }
     }
-    
+
     // Checking for nested modules
     if (keys.length === 1) {
       const mainKey = keys[0];
       const mainObj = parsedYaml[mainKey];
-      
+
       if (mainObj && typeof mainObj === 'object') {
         // Check if the main object has a module structure and contains other modules
         const nestedKeys = Object.keys(mainObj);
-        
+
         let nestedModuleCount = 0;
         for (const key of nestedKeys) {
           const obj = mainObj[key];
@@ -842,22 +841,22 @@ function _requiresManualInstallation(module) {
             nestedModuleCount++;
           }
         }
-        
+
         if (nestedModuleCount > 1) {
           return true; // Multiple nested modules
         }
       }
     }
-    
+
     // Check if the YAML is incomplete or doesn't contain required attributes
     if (keys.length === 1) {
       const mainKey = keys[0];
       const mainObj = parsedYaml[mainKey];
-      
+
       if (!mainObj || typeof mainObj !== 'object') {
         return true;
       }
-      
+
       // A valid module must have at least a name and code
       if (!mainObj.name || !mainObj.code) {
         return true;
@@ -867,7 +866,7 @@ function _requiresManualInstallation(module) {
     console.warn("Error checking module YAML compatibility:", error);
     return true; // If we can't parse the YAML, manual installation required
   }
-  
+
   return false;
 }
 
@@ -889,18 +888,18 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
     context._loadingProgress = 5;
     context._loadingStatus = "Connecting to GitHub";
     context.requestUpdate();
-    
+
     // Start progress animation
     let progressInterval = setInterval(() => {
       if (!context._isLoadingStore) {
         clearInterval(progressInterval);
         return;
       }
-      
+
       // Increment at a slower rate as we get closer to 85%
       const currentProgress = context._loadingProgress || 0;
       let increment = 0;
-      
+
       if (currentProgress < 40) {
         increment = Math.random() * 2.5;
       } else if (currentProgress < 60) {
@@ -910,13 +909,13 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
       } else if (currentProgress < 90) {
         increment = Math.random() * 0.3;
       }
-      
+
       if (currentProgress < 90) {
         context._loadingProgress = currentProgress + increment;
         context.requestUpdate();
       }
     }, 200);
-    
+
     // Store interval reference to clear later
     context._progressInterval = progressInterval;
   }
@@ -928,7 +927,7 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
       if (lastApiFailure) {
         const failureTime = parseInt(lastApiFailure);
         const cooldownPeriod = 30 * 60 * 1000; // 30 minutes
-        
+
         if (Date.now() - failureTime < cooldownPeriod) {
           // Use cache if available during cooldown
           const cachedData = getCachedModuleData();
@@ -937,18 +936,18 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
             context._isLoadingStore = false;
             context.requestUpdate();
           }
-          
+
           if (!isBackgroundFetch) {
             context._loadingStatus = "Loading from cache";
             context._loadingProgress = 100;
             context.requestUpdate();
-            
+
             if (context._progressInterval) {
               clearInterval(context._progressInterval);
               context._progressInterval = null;
             }
           }
-          
+
           context._isApiCallInProgress = false;
           return;
         } else {
@@ -974,7 +973,7 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
       let restResponse;
       let retryCount = 0;
       const maxRetries = 2;
-      
+
       while (retryCount <= maxRetries) {
         try {
           restResponse = await fetch(`https://api.github.com/repos/Clooos/Bubble-Card/discussions?per_page=100&page=${page}`, {
@@ -984,12 +983,12 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
               'X-GitHub-Api-Version': '2022-11-28'
             }
           });
-          
+
           // If successful or client error (4xx), break retry loop
           if (restResponse.ok || (restResponse.status >= 400 && restResponse.status < 500)) {
             break;
           }
-          
+
           // Server error (5xx), retry after delay
           if (retryCount < maxRetries) {
             console.warn(`⚠️ Server error ${restResponse.status} on page ${page}, retrying in ${(retryCount + 1) * 500}ms...`);
@@ -1006,7 +1005,7 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
             retryCount++;
           } else {
             console.warn(`⚠️ Network error on page ${page} after ${maxRetries} retries:`, networkError.message);
-            
+
             if (allDiscussions.length > 0) {
               // We have data from previous pages, use it
               console.warn(`Using ${allDiscussions.length} discussions from previous pages`);
@@ -1020,14 +1019,14 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
           }
         }
       }
-      
+
       // Skip processing if we're using partial data
       if (!restResponse) {
         continue;
       }
 
       if (!isBackgroundFetch) {
-        context._loadingStatus = `Processing page ${page}`;
+        context._loadingStatus = `正在处理第 ${page} 页`;
         // Gradually increase progress as pages load
         context._loadingProgress = Math.max(context._loadingProgress, Math.min(50 + (page * 5), 80));
         context.requestUpdate();
@@ -1044,7 +1043,7 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
           context._rateLimitWarning = true;
           _persistRateLimitWarning(context._rateLimitResetTime);
         }
-        
+
         // If we have data from previous pages and it's a server error (5xx), use what we have
         if (allDiscussions.length > 0 && restResponse.status >= 500) {
           console.warn(`⚠️ Server error on page ${page}, using ${allDiscussions.length} discussions from previous pages`);
@@ -1052,10 +1051,10 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
           hasMorePages = false;
           continue;
         }
-        
+
         // Save failure timestamp for cooldown
         localStorage.setItem('bubble-card-api-failure-timestamp', Date.now().toString());
-        
+
         throw new Error(`REST API Error: ${restResponse.status}`);
       }
 
@@ -1066,7 +1065,7 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
       } else {
         allDiscussions = [...allDiscussions, ...discussionsData];
         page++;
-        
+
         // Add delay between requests to avoid 504 Gateway Timeout
         if (hasMorePages) {
           await new Promise(resolve => setTimeout(resolve, 1000));
@@ -1082,7 +1081,7 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
         console.warn("⚠️ API limit approaching, stopping pagination");
         rateLimitReached = true;
         hasMorePages = false;
-        
+
         // Store reset timestamp for display
         if (rateLimitReset) {
           context._rateLimitResetTime = parseInt(rateLimitReset) * 1000;
@@ -1112,13 +1111,13 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
     // Check if we have enough data or if rate limit stopped us early
     const existingCache = getCachedModuleData();
     const hasEnoughData = parsedModules.length > 0;
-    const shouldPreserveCache = rateLimitReached && existingCache && existingCache.modules && 
-                                 existingCache.modules.length > parsedModules.length;
+    const shouldPreserveCache = rateLimitReached && existingCache && existingCache.modules &&
+      existingCache.modules.length > parsedModules.length;
 
     // If rate limit was reached and cache has more data, preserve it
     if (shouldPreserveCache) {
       console.warn("⚠️ Rate limit reached with incomplete data, preserving existing cache");
-      
+
       context._rateLimitWarning = true;
       _persistRateLimitWarning(context._rateLimitResetTime);
       if (!isBackgroundFetch) {
@@ -1129,7 +1128,7 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
 
       // Use cached data instead
       await new Promise(resolve => setTimeout(resolve, 300));
-      
+
       if (!isBackgroundFetch) {
         context._loadingProgress = 100;
         context._loadingStatus = "Loaded from cache (API limit reached)";
@@ -1138,12 +1137,12 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
 
       context._storeModules = existingCache.modules;
       context._isLoadingStore = false;
-      
+
       if (context._progressInterval) {
         clearInterval(context._progressInterval);
         context._progressInterval = null;
       }
-      
+
       context.requestUpdate();
       return;
     }
@@ -1177,13 +1176,13 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
     if (!isBackgroundFetch || !context._storeModules) {
       context._storeModules = hasEnoughData ? parsedModules : (existingCache?.modules || []);
       context._isLoadingStore = false;
-      
+
       // Clear interval if it exists
       if (context._progressInterval) {
         clearInterval(context._progressInterval);
         context._progressInterval = null;
       }
-      
+
       context.requestUpdate();
     }
 
@@ -1200,12 +1199,12 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
       context._loadingStatus = "Error - Loading from cache";
       context._loadingProgress = Math.max(context._loadingProgress, 85);
       context.requestUpdate();
-      
+
       const cachedData = getCachedModuleData();
       if (cachedData) {
-        
+
         await new Promise(resolve => setTimeout(resolve, 300));
-        
+
         context._storeModules = cachedData.modules;
         context._isLoadingStore = false;
         context._loadingProgress = 100;
@@ -1216,7 +1215,7 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
         context._isLoadingStore = false;
         context.requestUpdate();
       }
-      
+
       // Clear interval if it exists
       if (context._progressInterval) {
         clearInterval(context._progressInterval);

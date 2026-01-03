@@ -591,7 +591,7 @@ export function makeModulesEditor(context) {
             @click=${() => handleHaTabNavClick(MODULE_TAB_IDS[0])}
           >
             <ha-icon icon="mdi:puzzle-heart-outline" style="margin-right: 8px;"></ha-icon>
-            My Modules
+            我的模块
           </ha-tab-group-tab>
             <ha-tab-group-tab
             slot="nav"
@@ -601,7 +601,7 @@ export function makeModulesEditor(context) {
             @click=${() => handleHaTabNavClick(MODULE_TAB_IDS[1])}
           >
             <ha-icon icon="mdi:puzzle-plus-outline" style="margin-right: 8px;"></ha-icon>
-            Module Store
+            模块商店
           </ha-tab-group-tab>
         </ha-tab-group>
       `;
@@ -616,11 +616,11 @@ export function makeModulesEditor(context) {
         >
           <sl-tab slot="nav" panel="0">
             <ha-icon icon="mdi:puzzle-heart-outline" style="color: inherit !important; margin-right: 8px;"></ha-icon>
-            My Modules
+            我的模块
           </sl-tab>
           <sl-tab slot="nav" panel="1" ?disabled=${!bctAvailable}>
             <ha-icon icon="mdi:puzzle-plus-outline" style="color: inherit !important; margin-right: 8px;"></ha-icon>
-            Module Store
+            模块商店
           </sl-tab>
           <sl-tab-panel name="0"></sl-tab-panel>
           <sl-tab-panel name="1"></sl-tab-panel>
@@ -635,11 +635,11 @@ export function makeModulesEditor(context) {
       >
         <paper-tab>
           <ha-icon icon="mdi:puzzle-heart-outline" style="margin-right: 8px;"></ha-icon>
-          My Modules
+          我的模块
         </paper-tab>
         <paper-tab class="${!bctAvailable ? 'disabled' : ''}" ?disabled=${!bctAvailable}>
           <ha-icon icon="mdi:puzzle-plus-outline" style="margin-right: 8px;"></ha-icon>
-          Module Store
+          模块商店
         </paper-tab>
       </ha-tabs>
     `;
@@ -938,7 +938,7 @@ export function makeModulesEditor(context) {
                 }}
                             >
                               <ha-icon icon="mdi:card-outline"></ha-icon>
-                              <span>This card</span>
+                              <span>此卡片</span>
                             </button>
                             
                             <button 
