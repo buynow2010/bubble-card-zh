@@ -1,7 +1,7 @@
 import re
 import os
 
-target_file = 'dist/bubble-card-zh.js'
+target_file = 'dist/bubble-card.js'
 
 # Load the file
 with open(target_file, 'r', encoding='utf-8') as f:
