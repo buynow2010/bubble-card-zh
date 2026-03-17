@@ -1,3 +1,6 @@
 .DS_Store
 dist/tmp/
 .env
+maintenance_manual.md
+scripts/
+dist/bubble-card-orig.js
