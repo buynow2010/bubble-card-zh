@@ -138,7 +138,47 @@ data = {
 
     # A.3.16 Action types
     "Toggle": "切换", "More info": "更多信息", "Navigate": "导航", "URL": "链接",
-    "Call service": "调用服务", "Assist": "助手", "None": "无"
+    "Call service": "调用服务", "Assist": "助手", "None": "无",
+
+    # B.4.1 常见 editor 标签
+    "Color mode": "颜色模式", "Preset color": "预设颜色", "Color wheel": "调色盘",
+    "Custom value": "自定义值", "JS template": "JS 模板", "Opacity": "透明度",
+    "Enable": "启用", "Conditions": "条件", "Icon color": "图标颜色",
+    "Icon background color": "图标背景颜色", "Background color": "背景颜色",
+    "Card background color": "卡片背景颜色", "Card text color": "卡片文本颜色",
+    "Minimum value": "最小值", "Maximum value": "最大值", "Progress Color": "进度颜色",
+    "Custom state entity": "自定义状态实体", "Primary Color": "主色调",
+
+    # B.4.2 可折叠面板标题
+    "Default configuration": "默认配置", "Conditional colors": "条件颜色",
+    "Card Size Adjustments": "卡片尺寸调整", "Visual Enhancements": "视觉增强",
+    "Gradient Effects": "渐变效果", "Contrast Helpers": "对比度辅助",
+    "Main Icon": "主图标", "Sub Button": "子按钮",
+
+    # B.4.3 扩展标签翻译
+    "Cover Image Entity": "封面图像实体", "Target Timer": "目标定时器",
+    "Ring Color": "环形颜色", "Disable When": "禁用条件", "Arrow Position": "箭头位置",
+    "Collapsed width": "折叠宽度", "Depth": "深度", "Highlight Opacity": "高亮透明度",
+    "Apply to State Display": "应用到状态显示", "Decimal Places": "小数位数",
+    "Badge Size": "徽章大小", "Window Speed": "窗口速度", "Loading Timeout": "加载超时",
+    "Interpolate the colours": "插值颜色", "Orb Settings": "光球设置",
+    "Use slow orb animation": "使用慢速光球动画", "Window animation style": "窗口动画样式",
+    "HA Style": "HA 样式",
+
+    # B.4.4 动画相关
+    "Alert": "警报", "Boil": "沸腾", "Bounce": "弹跳", "Spin": "旋转", "Glow": "发光",
+    "Float": "浮动", "Zoom": "缩放", "Robot Vacuum": "扫地机器人", "Robot Mower": "割草机",
+    "Washing Machine": "洗衣机", "Dishwasher": "洗碗机", "Dryer": "烘干机", "Radiator": "暖气片",
+
+    # B.4.5 描述翻译
+    "This module allows you to": "此模块允许您", "This module extends": "此模块扩展了",
+    "This module lets you": "此模块让您", "This module is": "此模块是",
+    "based on entity state": "基于实体状态", "based on entity condition": "基于实体条件",
+    "with custom colors": "使用自定义颜色", "for Bambulab printers": "用于拓竹打印机",
+    "Frosted glass design": "毛玻璃设计", "A progress bar for timers": "定时器进度条",
+    "Transform your Bubble Cards into": "将您的 Bubble 卡片转换为",
+    "Add compass arrows": "添加指南针箭头", "That card creates": "此卡片创建",
+    "this is a port for bubble-card": "这是 bubble-card 的移植版"
 }
 
 # Special handling for A.3.17 already handled in 'replacements' initialized above.
