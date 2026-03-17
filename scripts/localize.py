@@ -22,10 +22,13 @@ def add_to_replacements(dictionary, r_list):
         v = dictionary[k]
         # Quoted strings
         r_list.append((r'"' + re.escape(k) + r'"', r'"' + v + r'"'))
-        # Tagged strings
-        r_list.append((r'>' + re.escape(k) + r'<', r'>' + v + r'<'))
-        # Sometimes there's spaces or other stuff
-        # r_list.append((re.escape(k), v)) # Dangerous, avoid raw replacement
+        r_list.append((r"'" + re.escape(k) + r"'", r"'" + v + r"'"))
+        r_list.append((r"`" + re.escape(k) + r"`", r"`" + v + r"`"))
+        # lit-html text nodes (surrounded by tags or newlines)
+        r_list.append((r'(>\s*)' + re.escape(k) + r'(\s*<)', r'\g<1>' + v + r'\g<2>'))
+        r_list.append((r'(\n\s*)' + re.escape(k) + r'(\s*\n)', r'\g<1>' + v + r'\g<2>'))
+        r_list.append((r'(\n\s*)' + re.escape(k) + r'(\s*<)', r'\g<1>' + v + r'\g<2>'))
+        r_list.append((r'(>\s*)' + re.escape(k) + r'(\s*\n)', r'\g<1>' + v + r'\g<2>'))
 
 # Data from maintenance_manual.md A.3.1 - A.3.16
 data = {

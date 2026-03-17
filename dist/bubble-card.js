@@ -194,7 +194,7 @@
           <ha-expansion-panel 
             .header=${o.qy`
               <ha-icon icon="mdi:export" style="margin-right: 8px;"></ha-icon>
-              Export Module
+              导出模块
             `}
             @expanded-changed=${e=>e.stopPropagation()}
           >
@@ -976,7 +976,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                 <ha-icon icon="mdi:gesture-tap"></ha-icon>
-                Tap action on icon
+                图标点击动作
                 </h4>
                 <div class="content">
                     ${e.makeActionPanel("Tap action")}
@@ -987,7 +987,7 @@
             <ha-expansion-panel outlined style="display: ${"slider"===e._config.button_type&&e._config.tap_to_slide?"none":""}">
                 <h4 slot="header">
                 <ha-icon icon="mdi:gesture-tap-button"></ha-icon>
-                Tap action on card
+                卡片点击动作
                 </h4>
                 <div class="content">
                     <!-- 
@@ -1006,7 +1006,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                 <ha-icon icon="mdi:palette"></ha-icon>
-                Styling and layout options
+                样式与布局选项
                 </h4>
                 <div class="content">
                     ${e.makeLayoutPanel()}
@@ -1106,7 +1106,7 @@
                 <div class="bubble-info">
                     <h4 class="bubble-section-title">
                         <ha-icon icon="mdi:information-outline"></ha-icon>
-                        Pop-up
+                        弹出窗口
                     </h4>
                     <div class="content">
                         <p>Pop-ups are a great way to declutter your dashboard and quickly display more information when you need it.</p>
@@ -1131,7 +1131,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:dock-top"></ha-icon>
-                  Header settings
+                  页眉设置
                 </h4>
                 <div class="content">
                     <ha-formfield .label="Show header">
@@ -1163,7 +1163,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:cog"></ha-icon>
-                  Pop-up settings
+                  弹出窗口设置
                 </h4>
                 <div class="content">
                     <ha-textfield
@@ -1233,7 +1233,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:bell"></ha-icon>
-                  Pop-up trigger
+                  弹出窗口触发器
                 </h4>
                 <div class="content">
                     <ha-formfield>
@@ -1267,7 +1267,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:gesture-tap"></ha-icon>
-                  Pop-up open/close action
+                  弹出窗口开关动作
                 </h4>
                 <div class="content">
                     ${e.makeActionPanel("开启动作",e._config,"none")}
@@ -1286,14 +1286,14 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:palette"></ha-icon>
-                  Styling and layout options
+                  样式与布局选项
                 </h4>
                 <div class="content">
                     ${e.makeLayoutPanel()}
                     <ha-expansion-panel outlined>
                         <h4 slot="header">
                           <ha-icon icon="mdi:palette"></ha-icon>
-                          Pop-up styling
+                          弹出窗口样式
                         </h4>
                         <div class="content"> 
                             <ha-textfield
@@ -1586,7 +1586,7 @@
           >
             <h4 slot="header">
               <ha-icon icon="mdi:gesture-tap"></ha-icon>
-              Tap action on button
+              按钮点击动作
             </h4>
             <div class="content">
               ${X(e,S,!!e._expandedPanelStates[S],()=>c.qy`
@@ -1649,7 +1649,7 @@
           >
             <h4 slot="header">
               <ha-icon icon="mdi:view-grid"></ha-icon>
-              Layout
+              布局
             </h4>
             <div class="content">
               ${X(e,L,!!e._expandedPanelStates[L],()=>c.qy`
@@ -1817,7 +1817,7 @@
       `:G({trigger:c.qy`
           <button slot="trigger" class="icon-button add-menu-trigger">
             <ha-icon icon="mdi:plus"></ha-icon>
-            Add
+            添加
           </button>
         `,items:[{type:"item",icon:"mdi:shape-square-rounded-plus",label:"Add sub-button",onClick:()=>{ue(e,t,t=>[...t,{entity:e._config.entity}],be)}},{type:"item",icon:"mdi:format-list-group-plus",label:"Add group",onClick:()=>{s()}}]})}
     </div>
@@ -1833,7 +1833,7 @@
     <ha-expansion-panel outlined>
       <h4 slot="header">
         <ha-icon icon="mdi:puzzle"></ha-icon>
-        Modules
+        模块
         ${d.hasUpdates&&l?c.qy`
           <span class="bubble-badge update-badge" style="margin-left: 8px; font-size: 0.8em; vertical-align: middle; z-index: 5;">
             <ha-icon icon="mdi:arrow-up-circle-outline"></ha-icon>
@@ -1876,7 +1876,7 @@
             @click=${()=>a(ke[0])}
           >
             <ha-icon icon="mdi:puzzle-heart-outline" style="margin-right: 8px;"></ha-icon>
-            My Modules
+            我的模块
           </ha-tab-group-tab>
             <ha-tab-group-tab
             slot="nav"
@@ -1886,7 +1886,7 @@
             @click=${()=>a(ke[1])}
           >
             <ha-icon icon="mdi:puzzle-plus-outline" style="margin-right: 8px;"></ha-icon>
-            Module Store
+            模块商店
           </ha-tab-group-tab>
         </ha-tab-group>
       `:"sl-tab-group"===o?c.qy`
@@ -1898,11 +1898,11 @@
         >
           <sl-tab slot="nav" panel="0">
             <ha-icon icon="mdi:puzzle-heart-outline" style="color: inherit !important; margin-right: 8px;"></ha-icon>
-            My Modules
+            我的模块
           </sl-tab>
           <sl-tab slot="nav" panel="1" ?disabled=${!l}>
             <ha-icon icon="mdi:puzzle-plus-outline" style="color: inherit !important; margin-right: 8px;"></ha-icon>
-            Module Store
+            模块商店
           </sl-tab>
           <sl-tab-panel name="0"></sl-tab-panel>
           <sl-tab-panel name="1"></sl-tab-panel>
@@ -1915,11 +1915,11 @@
       >
         <paper-tab>
           <ha-icon icon="mdi:puzzle-heart-outline" style="margin-right: 8px;"></ha-icon>
-          My Modules
+          我的模块
         </paper-tab>
         <paper-tab class="${l?"":"disabled"}" ?disabled=${!l}>
           <ha-icon icon="mdi:puzzle-plus-outline" style="margin-right: 8px;"></ha-icon>
-          Module Store
+          模块商店
         </paper-tab>
       </ha-tabs>
     `})()}
@@ -1958,7 +1958,7 @@
                     @click=${async()=>{try{const t=e._manualYamlContent;if(!t||""===t.trim())return void(0,s.rC)(e,"bubble-card-error",{message:"No YAML content provided"});const n=await(0,_e.m)(e,t);e._showManualImportForm=!1,e._manualYamlContent="",n&&n.moduleId&&(e._recentlyToggledModuleId=n.moduleId,setTimeout(()=>{e._recentlyToggledModuleId=null,e.requestUpdate()},2e3)),e.requestUpdate(),n&&n.moduleId&&requestAnimationFrame(()=>{requestAnimationFrame(()=>{const t=e.shadowRoot?.querySelector(`ha-expansion-panel[data-module-id="${n.moduleId}"]`);t&&t.scrollIntoView({behavior:"smooth",block:"center"})})})}catch(e){console.error("Error installing manual module:",e)}}}
                   >
                     <ha-icon icon="mdi:content-save"></ha-icon>
-                    Import Module
+                    导入模块
                   </button>
                 </div>
               </div>
@@ -2040,7 +2040,7 @@
                       <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div class="module-toggles-container">
                           <span class="module-toggles-label">
-                            APPLY TO
+                            应用于
                           </span>
                           <div class="module-toggles">
                             <button 
@@ -2170,12 +2170,12 @@
           <div class="module-editor-buttons-container" style="display: flex;">
             <button class="icon-button" style="flex: 1;" @click=${()=>{e._showNewModuleForm=!0,e._showManualImportForm=!1,e._generateUniqueModuleId&&(e._newModuleTemplate.id=e._generateUniqueModuleId("my_module")),e._editingModule={...e._newModuleTemplate},e._config.modules||(e._config.modules=e._config.style_templates||[]),e._config.modules.includes(e._editingModule.id)||(e._config.modules=[...e._config.modules,e._editingModule.id],(0,s.rC)(e,"config-changed",{config:e._config})),e.requestUpdate(),setTimeout(()=>(0,fe.XY)(e),0)}}>
               <ha-icon icon="mdi:puzzle-plus"></ha-icon>
-              Create new Module
+              创建新模块
             </button>
             
             <button class="icon-button" style="flex: 1;" @click=${()=>{e._showManualImportForm=!0,e._showNewModuleForm=!1,e._manualYamlContent="",e.requestUpdate(),setTimeout(()=>(0,fe.XY)(e),0)}}>
               <ha-icon icon="mdi:code-json"></ha-icon>
-              Import from YAML
+              从 YAML 导入
             </button>
           </div>
           `}
@@ -2184,7 +2184,7 @@
         <div class="bubble-info">
           <h4 class="bubble-section-title">
             <ha-icon icon="mdi:information-outline"></ha-icon>
-            Modules
+            模块
           </h4>
           <div class="content">
             <p>Modules are really powerful and the best way to apply <a href="https://github.com/Clooos/Bubble-Card#styling" target="_blank" rel="noopener noreferrer">custom styles</a> and/or <a href="https://github.com/Clooos/Bubble-Card#templates" target="_blank" rel="noopener noreferrer">JS templates</a> to your cards, without having to copy/paste the same code over and over again.</p>
@@ -2201,7 +2201,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                     <ha-icon icon="mdi:cog"></ha-icon>
-                    Card settings
+                    卡片设置
                 </h4>
                 <div class="content">
                     <ha-formfield>
@@ -2283,7 +2283,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                     <ha-icon icon="mdi:palette"></ha-icon>
-                    Styling and layout options
+                    样式与布局选项
                 </h4>
                 <div class="content">
                     ${e.makeLayoutPanel()}
@@ -2319,7 +2319,7 @@
         <ha-expansion-panel outlined>
             <h4 slot="header">
               <ha-icon icon="mdi:palette"></ha-icon>
-              Styling and layout options
+              样式与布局选项
             </h4>
             <div class="content">
                 ${n.makeLayoutPanel()}
@@ -2330,7 +2330,7 @@
         <div class="bubble-info">
             <h4 class="bubble-section-title">
                 <ha-icon icon="mdi:information-outline"></ha-icon>
-                Separator card
+                分隔符卡片
             </h4>
             <div class="content">
                 <p>This card is a simple separator for dividing your pop-up/dashboard into categories or sections. e.g. Lights, Devices, Covers, Settings, Automations...</p>
@@ -2397,7 +2397,7 @@
             </div>
             <button class="icon-button" @click="${function(){e.buttonIndex++,e.requestUpdate()}}">
                 <ha-icon icon="mdi:plus"></ha-icon>
-                New button
+                新建按钮
             </button>
             <hr>
             <ha-formfield .label="Auto order">
@@ -2414,14 +2414,14 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:palette"></ha-icon>
-                  Styling and layout options
+                  样式与布局选项
                 </h4>
                 <div class="content">  
                     ${e.makeLayoutPanel()}
                     <ha-expansion-panel outlined>
                         <h4 slot="header">
                           <ha-icon icon="mdi:palette"></ha-icon>
-                          Horizontal buttons stack styling
+                          水平按钮组样式
                         </h4>
                         <div class="content"> 
                             <ha-textfield
@@ -2478,7 +2478,7 @@
             <div class="bubble-info">
                 <h4 class="bubble-section-title">
                     <ha-icon icon="mdi:information-outline"></ha-icon>
-                    Horizontal buttons stack card
+                    水平按钮组卡片
                 </h4>
                 <div class="content">
                     <p>This card is a good companion to the pop-up card, allowing you to open pop-ups or any page of your dashboard. In addition, you can add your motion sensors so that the order of the buttons adapts according to the room you just entered. This card is scrollable, remains visible and acts as a footer.</p>
@@ -2499,7 +2499,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:cog"></ha-icon>
-                  Card settings
+                  卡片设置
                 </h4>
                 <div class="content"> 
                     <ha-textfield
@@ -2542,7 +2542,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:gesture-tap"></ha-icon>
-                  Tap action on icon
+                  图标点击动作
                 </h4>
                 <div class="content">
                     ${e.makeActionPanel("Tap action")}
@@ -2553,7 +2553,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                 <ha-icon icon="mdi:gesture-tap-button"></ha-icon>
-                Tap action on card
+                卡片点击动作
                 </h4>
                 <div class="content">
                     ${e.makeActionPanel("Tap action",t,"none","button_action")}
@@ -2565,14 +2565,14 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:palette"></ha-icon>
-                  Styling and layout options
+                  样式与布局选项
                 </h4>
                 <div class="content"> 
                     ${e.makeLayoutPanel()}
                     <ha-expansion-panel outlined>
                         <h4 slot="header">
                           <ha-icon icon="mdi:palette"></ha-icon>
-                          Cover styling
+                          窗帘样式
                         </h4>
                         <div class="content"> 
                             ${e.makeDropdown("Optional - Arrow down icon","icon_down")}
@@ -2586,7 +2586,7 @@
             <div class="bubble-info">
                 <h4 class="bubble-section-title">
                     <ha-icon icon="mdi:information-outline"></ha-icon>
-                    Cover card
+                    窗帘卡片
                 </h4>
                 <div class="content">
                     <p>This card allows you to control your covers.</p>
@@ -2607,7 +2607,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:cog"></ha-icon>
-                  Card settings
+                  卡片设置
                 </h4>
                 <div class="content"> 
                     <ha-textfield
@@ -2623,7 +2623,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                 <ha-icon icon="mdi:tune-variant"></ha-icon>
-                Media player settings
+                媒体播放器设置
                 </h4>
                 <div class="content">
                     <ha-form
@@ -2702,7 +2702,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:gesture-tap"></ha-icon>
-                  Tap action on icon
+                  图标点击动作
                 </h4>
                 <div class="content">
                     ${e.makeActionPanel("Tap action")}
@@ -2713,7 +2713,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                 <ha-icon icon="mdi:gesture-tap-button"></ha-icon>
-                Tap action on card
+                卡片点击动作
                 </h4>
                 <div class="content">
                     ${e.makeActionPanel("Tap action",t,"none","button_action")}
@@ -2725,14 +2725,14 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:palette"></ha-icon>
-                  Styling and layout options
+                  样式与布局选项
                 </h4>
                 <div class="content">
                     ${e.makeLayoutPanel()}
                     <ha-expansion-panel outlined>
                         <h4 slot="header">
                           <ha-icon icon="mdi:palette"></ha-icon>
-                          Media player styling
+                          媒体播放器样式
                         </h4>
                         <div class="content"> 
                             <ha-formfield .label="Optional - Blurred media cover in background">
@@ -2755,7 +2755,7 @@
             <div class="bubble-info">
                 <h4 class="bubble-section-title">
                     <ha-icon icon="mdi:information-outline"></ha-icon>
-                    Media player card
+                    媒体播放器卡片
                 </h4>
                 <div class="content">
                     <p>This card allows you to control a media player entity.</p>
@@ -2769,7 +2769,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:palette"></ha-icon>
-                  Styling and layout options
+                  样式与布局选项
                 </h4>
                 <div class="content">
                     ${e.makeLayoutPanel()}
@@ -2778,7 +2778,7 @@
             <div class="bubble-info">
                 <h4 class="bubble-section-title">
                     <ha-icon icon="mdi:information-outline"></ha-icon>
-                    Empty column card
+                    空白列卡片
                 </h4>
                 <div class="content">
                     <p>Just an empty card to fill any empty column.</p>
@@ -2808,7 +2808,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:cog"></ha-icon>
-                  Card settings
+                  卡片设置
                 </h4>
                 <div class="content">                   
                     <ha-textfield
@@ -2824,7 +2824,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:gesture-tap"></ha-icon>
-                  Tap action on icon
+                  图标点击动作
                 </h4>
                 <div class="content">
                     ${e.makeActionPanel("Tap action")}
@@ -2835,7 +2835,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:gesture-tap-button"></ha-icon>
-                  Tap action on button
+                  按钮点击动作
                 </h4>
                 <div class="content">
                     <div style="${n?"opacity: 0.5; pointer-events: none;":""}">
@@ -2849,7 +2849,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:palette"></ha-icon>
-                  Styling and layout options
+                  样式与布局选项
                 </h4>
                 <div class="content">
                     ${e.makeLayoutPanel()}
@@ -2860,7 +2860,7 @@
             <div class="bubble-info">
                 <h4 class="bubble-section-title">
                     <ha-icon icon="mdi:information-outline"></ha-icon>
-                    Select card
+                    选择菜单卡片
                 </h4>
                 <div class="content">
                     <p>This card allows you to have a select menu for your entities with selectable options:</p>
@@ -2892,7 +2892,7 @@
                                 <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:cog"></ha-icon>
-                  Card settings
+                  卡片设置
                 </h4>
                 <div class="content">     
                     <ha-textfield
@@ -2908,7 +2908,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                 <ha-icon icon="mdi:tune-variant"></ha-icon>
-                Climate settings
+                空调设置
                 </h4>
                 <div class="content">
                     <ha-form
@@ -2972,7 +2972,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:gesture-tap"></ha-icon>
-                  Tap action on icon
+                  图标点击动作
                 </h4>
                 <div class="content">
                     ${e.makeActionPanel("Tap action")}
@@ -2983,7 +2983,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                 <ha-icon icon="mdi:gesture-tap-button"></ha-icon>
-                Tap action on card
+                卡片点击动作
                 </h4>
                 <div class="content">
                     ${e.makeActionPanel("Tap action",t,"none","button_action")}
@@ -2995,7 +2995,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:palette"></ha-icon>
-                  Styling and layout options
+                  样式与布局选项
                 </h4>
                 <div class="content">
                     ${e.makeLayoutPanel()}
@@ -3006,7 +3006,7 @@
             <div class="bubble-info">
                 <h4 class="bubble-section-title">
                     <ha-icon icon="mdi:information-outline"></ha-icon>
-                    Climate card
+                    空调卡片
                 </h4>
                 <div class="content">
                     <p>This card allows you to control your climate entities. You can also add a sub-button that display a dropdown menu for your climate modes (check if you have "Select menu" available when you create a new sub-button).</p>
@@ -3065,7 +3065,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:palette"></ha-icon>
-                  Styling options
+                  样式选项
                 </h4>
                 <div class="content">
                     ${e.makeLayoutOptions()}
@@ -3076,7 +3076,7 @@
             <div class="bubble-info">
                 <h4 class="bubble-section-title">
                     <ha-icon icon="mdi:information-outline"></ha-icon>
-                    Calendar card
+                    日历卡片
                 </h4>
                 <div class="content">
                     <p>This card allows you to display a calendar and is scrollable, so you can view additional events.</p>
@@ -3237,7 +3237,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                     <ha-icon icon="mdi:view-grid"></ha-icon>
-                    Layout
+                    布局
                 </h4>
                 <div class="content">
                     ${this.makeLayoutOptions()}
@@ -3481,7 +3481,7 @@
     <ha-expansion-panel outlined>
       <h4 slot="header">
         <ha-icon icon="mdi:shape-square-rounded-plus"></ha-icon>
-        Sub-buttons editor
+        子按钮编辑器
       </h4>
       <div class="content">
         ${y?c.qy`
@@ -3562,7 +3562,7 @@
           <ha-expansion-panel outlined>
             <h4 slot="header">
               <ha-icon icon="mdi:arrow-down-circle-outline"></ha-icon>
-              Bottom sub-buttons
+              底部子按钮
             </h4>
             <div class="content">
               ${ge(e,"bottom")}
