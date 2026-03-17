@@ -178,7 +178,42 @@ data = {
     "Frosted glass design": "毛玻璃设计", "A progress bar for timers": "定时器进度条",
     "Transform your Bubble Cards into": "将您的 Bubble 卡片转换为",
     "Add compass arrows": "添加指南针箭头", "That card creates": "此卡片创建",
-    "this is a port for bubble-card": "这是 bubble-card 的移植版"
+    "this is a port for bubble-card": "这是 bubble-card 的移植版",
+
+    # Extra missing complex UI strings
+    "Optional: Editor schema (YAML)": "可选：编辑器 Schema (YAML)",
+    "Optional - Entity (default to card entity)": "可选 - 实体（默认为卡片实体）",
+    "Optional - Select menu (from attributes)": "可选 - 选择菜单（来自属性）",
+    "Optional - Light / Light group (For background color)": "可选 - 灯 / 灯组（用于背景颜色）",
+    "Optional - Presence / Occupancy sensor (For button auto order)": "可选 - 人体 / 占用传感器（用于自动排序）",
+    "Optional - Auto order (Presence/occupancy sensors needed)": "可选 - 自动排序（需要人体/占用传感器）",
+    "Optional - Margin (fix centering on some themes) (e.g. 13px)": "可选 - 外边距（修复某些主题的居中问题）（例如：13px）",
+    "Optional - Width on desktop (100% by default on mobile)": "可选 - 桌面端宽度（移动端默认为 100%）",
+    "Optional - Rise animation (Displays an animation once the page has loaded)": "可选 - 浮现动画（页面加载后显示动画）",
+    "Optional - Highlight current hash / view": "可选 - 高亮当前哈希/视图",
+    "Optional - Hide gradient": "可选 - 隐藏渐变",
+    "Optional - Blurred media cover in background": "可选 - 将媒体封面模糊作为背景",
+    "Optional - Hide target temp low": "可选 - 隐藏目标低温",
+    "Optional - Hide target temp high": "可选 - 隐藏目标高温",
+    "Optional - Constant background color when ON": "可选 - 开启时保持恒定背景色",
+    "Optional - Open service (cover.open_cover by default)": "可选 - 开启服务（默认为 cover.open_cover）",
+    "Optional - Stop service (cover.stop_cover by default)": "可选 - 停止服务（默认为 cover.stop_cover）",
+    "Optional - Close service (cover.close_cover by default)": "可选 - 关闭服务（默认为 cover.close_cover）",
+    "Header card settings": "页眉卡片设置",
+    "Slider settings": "滑块设置",
+    "Button settings": "按钮设置",
+    "Calendar settings": "日历设置",
+    "Buttons alignment locked by sub-button settings": "按钮对齐受子按钮设置锁定",
+
+    # Screenshot missing toggles
+    "Text scrolling effect": "文本滚动效果",
+    "Show icon": "显示图标",
+    "Prioritize icon over entity picture": "图标优先于实体图片",
+    "Show name": "显示名称",
+    "Show entity state": "显示实体状态",
+    "Show last changed": "显示上次更改时间",
+    "Show last updated": "显示上次更新时间",
+    "Show attribute": "显示属性"
 }
 
 # Special handling for A.3.17 already handled in 'replacements' initialized above.
