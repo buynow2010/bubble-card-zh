@@ -1,0 +1,8 @@
+{
+  "name": "Bubble Card ZH",
+  "content_in_root": false,
+  "render_readme": false,
+  "filename": "bubble-card-zh.js",
+  "homeassistant": "2023.9.0",
+  "zip_release": false
+}
