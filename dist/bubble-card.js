@@ -132,7 +132,7 @@
             style="display: ${"default"===e._editingModule.id?"none":""}" 
             .header=${o.qy`
               <ha-icon icon="mdi:form-select" style="margin-right: 8px;"></ha-icon>
-              可选：编辑器 Schema (YAML)
+              Optional: Editor schema (YAML)
             `}
             @expanded-changed=${e=>e.stopPropagation()}
           >
@@ -949,7 +949,7 @@
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                 <ha-icon icon="mdi:cog"></ha-icon>
-                ${n?"页眉卡片设置":"卡片设置"}
+                ${n?"Header card settings":"卡片设置"}
                 </h4>
                 <div class="content">     
                     <ha-textfield
@@ -966,7 +966,7 @@
         <ha-expansion-panel outlined style="display: ${t?"":"none"}">
             <h4 slot="header">
             <ha-icon icon="mdi:tune-variant"></ha-icon>
-            滑块设置
+            Slider settings
             </h4>
             <div class="content">
                 ${m({hass:e.hass,data:e._config,entity:e._config.entity,computeLabel:e._computeLabelCallback,onFormChange:e._valueChanged,onToggleChange:(t,n,o={})=>{if(!t)return;const i=(o.control||"").toUpperCase(),a=o.eventType||("HA-TEXTFIELD"===i?"input":"HA-COMBO-BOX"===i?"value-changed":"change"),r={configValue:t,tagName:i||"INPUT"};"HA-SWITCH"===i?r.checked=n:r.value=n;const s={type:a,target:r,detail:"value-changed"===a||"selected"===a?{value:n}:void 0};e._valueChanged(s)},isReadOnly:h(e),showEntityFilterToggle:!0,entityFilterValue:e._disableEntityFilter,onEntityFilterToggle:t=>{e._disableEntityFilter=t,e.requestUpdate()},showEntityFilterInfo:e._disableEntityFilter,rangeFormDisabled:"name"===e._config.button_type})}
@@ -1038,7 +1038,7 @@
                             <li><ha-icon icon="mdi:numeric"></ha-icon>Input number and number (value)</li>
                             <li><ha-icon icon="mdi:battery-50"></ha-icon>Battery sensor (percentage, read only)</li>
                         </ul>
-                        <p>You can also use any entity with a <b>numeric state</b> by disabling the entity filter in <b>滑块设置</b>, then define the <b>min</b> and <b>max</b> values. This option is read only.</p>
+                        <p>You can also use any entity with a <b>numeric state</b> by disabling the entity filter in <b>Slider settings</b>, then define the <b>min</b> and <b>max</b> values. This option is read only.</p>
                     `:""}
                     
                     ${"state"===e._config.button_type?c.qy`
@@ -1419,7 +1419,7 @@
             </div>
             ${e.makeVersion()}
       </div>
-    `}function j(e,t){delete e._config[t+"_name"],delete e._config[t+"_icon"],delete e._config[t+"_link"],delete e._config[t+"_entity"],delete e._config[t+"_pir_sensor"];for(let n=t;n<e.buttonIndex;n++)e._config[n+"_name"]=e._config[n+1+"_name"],e._config[n+"_icon"]=e._config[n+1+"_icon"],e._config[n+"_link"]=e._config[n+1+"_link"],e._config[n+"_entity"]=e._config[n+1+"_entity"],e._config[n+"_pir_sensor"]=e._config[n+1+"_pir_sensor"];delete e._config[e.buttonIndex+"_name"],delete e._config[e.buttonIndex+"_icon"],delete e._config[e.buttonIndex+"_link"],delete e._config[e.buttonIndex+"_entity"],delete e._config[e.buttonIndex+"_pir_sensor"],e.buttonIndex--,(0,s.rC)(e,"config-changed",{config:e._config})}var N=n(175);const U={en:{cards:{calendar:{busy:"忙碌",all_day:"All day"}},editor:{calendar:{entity:"实体",color:"Color",days:"Max days",limit:"Limit",list_of_calendars:"List of calendars",show_end:"Show end time",show_progress:"Show progress",show_place:"Show place",show_started_events:"Show started events",text_scrolling:"Text scrolling effect",name:"日历",new_calendar:"Add another calendar",remove_calendar:"Remove this calendar",settings:"日历设置"}}},fr:{cards:{calendar:{busy:"Occupé",all_day:"Journée"}},editor:{calendar:{entity:"Entité",color:"Couleur",days:"Jours max.",limit:"Limite",list_of_calendars:"Liste des calendriers",show_end:"Voir l'heure de fin",show_progress:"Voir la progression",show_place:"Voir le lieu",show_started_events:"Afficher les événements en cours",text_scrolling:"Effet de défilement du texte",name:"Calendrier",new_calendar:"Ajouter un autre calendrier",remove_calendar:"Supprimer ce calendrier",settings:"Paramètres du calendrier"}}},de:{cards:{calendar:{busy:"Beschäftigt",all_day:"Ganztägig"}},editor:{calendar:{entity:"Entität",color:"Farbe",days:"Max tage",limit:"Anzeigelimit",list_of_calendars:"Kalenderliste",show_end:"Endzeitpunkt anzeigen",show_progress:"Fortschritt anzeigen",show_started_events:"Laufende Ereignisse anzeigen",text_scrolling:"Lauftext",name:"Kalender",new_calendar:"Kalender hinzufügen",remove_calendar:"Kalender entfernen",settings:"Kalendereinstellungen"}}},"zh-Hans":{cards:{calendar:{busy:"忙碌",all_day:"全天"}},editor:{calendar:{entity:"实体",color:"颜色",days:"最大天数",limit:"限制",list_of_calendars:"日历列表",show_end:"显示结束时间",show_progress:"显示进度",show_started_events:"显示已开始的事件",text_scrolling:"文字滚动效果",name:"日历",new_calendar:"添加另一个日历",remove_calendar:"删除此日历",settings:"日历设置"}}}};function D(e,t){return e[t]}function z(e,t){try{const n=U[t];return e.split(".").reduce(D,n)}catch{return}}function R(e){return function(t){const n=function(e){return e?.locale.language??"en"}(e),o=z(t,n);if(o)return o;return z(t,"en")||t}}function V(e){return Array.from(e).reduce((e,t)=>t.charCodeAt(0)+((e<<5)-e),0)}function F(e){const t=(16777215&e).toString(16).toUpperCase();return"#"+"00000".substring(0,6-t.length)+t}function H(e){if(e.date){const t=e.date.split("-"),n=parseInt(t[0],10),o=parseInt(t[1],10)-1,i=parseInt(t[2],10);return new Date(n,o,i)}return new Date(e.dateTime)}function W(e,t){const n=H(e.start),o=H(t.start),i=new Date(n.getFullYear(),n.getMonth(),n.getDate()),a=new Date(o.getFullYear(),o.getMonth(),o.getDate()),r=i.getTime()-a.getTime();if(0!==r)return r;const s=void 0!==e.start.date,l=void 0!==t.start.date;return s&&!l?-1:!s&&l?1:s||l?0:n.getTime()-o.getTime()}const Y=e=>e.title||e.label;class K extends c.WF{getSchema(e){const t=R(this.hass);return[{type:"expandable",name:"",title:e?this.hass.states[e].attributes.friendly_name||e:t("editor.calendar.new_calendar"),schema:[{name:"entity",title:t("editor.calendar.entity"),selector:{entity:{domain:["calendar"]}}},{name:"color",title:t("editor.calendar.color"),selector:{ui_color:{}}}]}]}static properties={hass:{},value:{type:Array},label:{}};constructor(){super(),this.value=[]}render(){const e=R(this.hass),t=e=>()=>{const t=[...this.value||[]];t.splice(e,1),this.valueChanged({detail:{value:t}})},n=this.value??[];return c.qy`
+    `}function j(e,t){delete e._config[t+"_name"],delete e._config[t+"_icon"],delete e._config[t+"_link"],delete e._config[t+"_entity"],delete e._config[t+"_pir_sensor"];for(let n=t;n<e.buttonIndex;n++)e._config[n+"_name"]=e._config[n+1+"_name"],e._config[n+"_icon"]=e._config[n+1+"_icon"],e._config[n+"_link"]=e._config[n+1+"_link"],e._config[n+"_entity"]=e._config[n+1+"_entity"],e._config[n+"_pir_sensor"]=e._config[n+1+"_pir_sensor"];delete e._config[e.buttonIndex+"_name"],delete e._config[e.buttonIndex+"_icon"],delete e._config[e.buttonIndex+"_link"],delete e._config[e.buttonIndex+"_entity"],delete e._config[e.buttonIndex+"_pir_sensor"],e.buttonIndex--,(0,s.rC)(e,"config-changed",{config:e._config})}var N=n(175);const U={en:{cards:{calendar:{busy:"忙碌",all_day:"All day"}},editor:{calendar:{entity:"实体",color:"Color",days:"Max days",limit:"Limit",list_of_calendars:"List of calendars",show_end:"Show end time",show_progress:"Show progress",show_place:"Show place",show_started_events:"Show started events",text_scrolling:"文本滚动效果",name:"日历",new_calendar:"Add another calendar",remove_calendar:"Remove this calendar",settings:"Calendar settings"}}},fr:{cards:{calendar:{busy:"Occupé",all_day:"Journée"}},editor:{calendar:{entity:"Entité",color:"Couleur",days:"Jours max.",limit:"Limite",list_of_calendars:"Liste des calendriers",show_end:"Voir l'heure de fin",show_progress:"Voir la progression",show_place:"Voir le lieu",show_started_events:"Afficher les événements en cours",text_scrolling:"Effet de défilement du texte",name:"Calendrier",new_calendar:"Ajouter un autre calendrier",remove_calendar:"Supprimer ce calendrier",settings:"Paramètres du calendrier"}}},de:{cards:{calendar:{busy:"Beschäftigt",all_day:"Ganztägig"}},editor:{calendar:{entity:"Entität",color:"Farbe",days:"Max tage",limit:"Anzeigelimit",list_of_calendars:"Kalenderliste",show_end:"Endzeitpunkt anzeigen",show_progress:"Fortschritt anzeigen",show_started_events:"Laufende Ereignisse anzeigen",text_scrolling:"Lauftext",name:"Kalender",new_calendar:"Kalender hinzufügen",remove_calendar:"Kalender entfernen",settings:"Kalendereinstellungen"}}},"zh-Hans":{cards:{calendar:{busy:"忙碌",all_day:"全天"}},editor:{calendar:{entity:"实体",color:"颜色",days:"最大天数",limit:"限制",list_of_calendars:"日历列表",show_end:"显示结束时间",show_progress:"显示进度",show_started_events:"显示已开始的事件",text_scrolling:"文字滚动效果",name:"日历",new_calendar:"添加另一个日历",remove_calendar:"删除此日历",settings:"日历设置"}}}};function D(e,t){return e[t]}function z(e,t){try{const n=U[t];return e.split(".").reduce(D,n)}catch{return}}function R(e){return function(t){const n=function(e){return e?.locale.language??"en"}(e),o=z(t,n);if(o)return o;return z(t,"en")||t}}function V(e){return Array.from(e).reduce((e,t)=>t.charCodeAt(0)+((e<<5)-e),0)}function F(e){const t=(16777215&e).toString(16).toUpperCase();return"#"+"00000".substring(0,6-t.length)+t}function H(e){if(e.date){const t=e.date.split("-"),n=parseInt(t[0],10),o=parseInt(t[1],10)-1,i=parseInt(t[2],10);return new Date(n,o,i)}return new Date(e.dateTime)}function W(e,t){const n=H(e.start),o=H(t.start),i=new Date(n.getFullYear(),n.getMonth(),n.getDate()),a=new Date(o.getFullYear(),o.getMonth(),o.getDate()),r=i.getTime()-a.getTime();if(0!==r)return r;const s=void 0!==e.start.date,l=void 0!==t.start.date;return s&&!l?-1:!s&&l?1:s||l?0:n.getTime()-o.getTime()}const Y=e=>e.title||e.label;class K extends c.WF{getSchema(e){const t=R(this.hass);return[{type:"expandable",name:"",title:e?this.hass.states[e].attributes.friendly_name||e:t("editor.calendar.new_calendar"),schema:[{name:"entity",title:t("editor.calendar.entity"),selector:{entity:{domain:["calendar"]}}},{name:"color",title:t("editor.calendar.color"),selector:{ui_color:{}}}]}]}static properties={hass:{},value:{type:Array},label:{}};constructor(){super(),this.value=[]}render(){const e=R(this.hass),t=e=>()=>{const t=[...this.value||[]];t.splice(e,1),this.valueChanged({detail:{value:t}})},n=this.value??[];return c.qy`
       <ha-expansion-panel outlined style="--expansion-panel-summary-padding: 0 8px;">
         <h4 slot="header" style="display: flex; align-items: center; margin: 10px 0;">
           <ha-icon icon="mdi:calendar" style="margin: 8px;"></ha-icon>
@@ -1504,14 +1504,14 @@
           >
             <h4 slot="header">
               <ha-icon icon="mdi:cog"></ha-icon>
-              按钮设置
+              Button settings
             </h4>
             <div class="content">
               ${X(e,$,!!e._expandedPanelStates[$],()=>c.qy` 
                 <ha-form
                   .hass=${e.hass}
                   .data=${t}
-                  .schema=${[{name:"entity",label:"可选 - 实体（默认为卡片实体）",selector:{entity:{}}}]}   
+                  .schema=${[{name:"entity",label:"Optional - Entity (default to card entity)",selector:{entity:{}}}]}   
                   .computeLabel=${e._computeLabelCallback}
                   @value-changed=${e=>i(e.detail.value)}
                 ></ha-form>
@@ -1538,7 +1538,7 @@
                     .hass=${e.hass}
                     .data=${{select_attribute:t.select_attribute}}
                     .schema=${[{name:"select_attribute",selector:{select:{options:w,mode:"dropdown"}}}]}
-                    .computeLabel=${()=>"可选 - 选择菜单（来自属性）"}
+                    .computeLabel=${()=>"Optional - Select menu (from attributes)"}
                     @value-changed=${e=>i({select_attribute:e.detail.value.select_attribute})}
                   ></ha-form>
                 `:""}
@@ -1570,7 +1570,7 @@
             >
               <h4 slot="header">
                 <ha-icon icon="mdi:tune-variant"></ha-icon>
-                滑块设置
+                Slider settings
               </h4>
               <div class="content">
                 ${X(e,E,!!e._expandedPanelStates[E],()=>c.qy`
@@ -1770,7 +1770,7 @@
                   <div class="bubble-info">
                     <h4 class="bubble-section-title">
                       <ha-icon icon="mdi:information-outline"></ha-icon>
-                      按钮对齐受子按钮设置锁定
+                      Buttons alignment locked by sub-button settings
                     </h4>
                     <div class="content">
                       <p>One or more sub-buttons explicitly enable "填充可用宽度". To change alignment, first disable "填充可用宽度" in those sub-buttons.</p>
@@ -2378,14 +2378,14 @@
                         <ha-form
                             .hass=${e.hass}
                             .data=${e._config}
-                            .schema=${[{name:n+"_entity",label:"可选 - 灯 / 灯组（用于背景颜色）",selector:{entity:{}}}]}   
+                            .schema=${[{name:n+"_entity",label:"Optional - Light / Light group (For background color)",selector:{entity:{}}}]}   
                             .computeLabel=${e._computeLabelCallback}
                             @value-changed=${e._valueChanged}
                         ></ha-form>
                         <ha-form
                             .hass=${e.hass}
                             .data=${e._config}
-                            .schema=${[{name:n+"_pir_sensor",label:"可选 - 人体 / 占用传感器（用于自动排序）",selector:{entity:{}}}]}   
+                            .schema=${[{name:n+"_pir_sensor",label:"Optional - Presence / Occupancy sensor (For button auto order)",selector:{entity:{}}}]}   
                             .computeLabel=${e._computeLabelCallback}
                             @value-changed=${e._valueChanged}
                         ></ha-form>
@@ -2408,7 +2408,7 @@
                     @change=${e._valueChanged}
                 ></ha-switch>
                 <div class="mdc-form-field">
-                    <label class="mdc-label">可选 - 自动排序（需要人体/占用传感器）</label> 
+                    <label class="mdc-label">Optional - Auto order (Presence/occupancy sensors needed)</label> 
                 </div>
             </ha-formfield>
             <ha-expansion-panel outlined>
@@ -2425,48 +2425,48 @@
                         </h4>
                         <div class="content"> 
                             <ha-textfield
-                                label="可选 - 外边距（修复某些主题的居中问题）（例如：13px）"
+                                label="Optional - Margin (fix centering on some themes) (e.g. 13px)"
                                 .value="${e._config?.margin||"7px"}"
                                 .configValue="${"margin"}"
                                 @input="${e._valueChanged}"
                             ></ha-textfield>
                             <ha-textfield
-                                label="可选 - 桌面端宽度（移动端默认为 100%）"
+                                label="Optional - Width on desktop (100% by default on mobile)"
                                 .value="${e._config?.width_desktop||"540px"}"
                                 .configValue="${"width_desktop"}"
                                 @input="${e._valueChanged}"
                             ></ha-textfield>
-                            <ha-formfield .label="可选 - 浮现动画（页面加载后显示动画）">
+                            <ha-formfield .label="Optional - Rise animation (Displays an animation once the page has loaded)">
                                 <ha-switch
-                                    aria-label="可选 - 浮现动画（页面加载后显示动画）"
+                                    aria-label="Optional - Rise animation (Displays an animation once the page has loaded)"
                                     .checked=${void 0===e._config?.rise_animation||e._config?.rise_animation}
                                     .configValue="${"rise_animation"}"
                                     @change=${e._valueChanged}
                                 ></ha-switch>
                                 <div class="mdc-form-field">
-                                    <label class="mdc-label">可选 - 浮现动画（页面加载后显示动画）</label> 
+                                    <label class="mdc-label">Optional - Rise animation (Displays an animation once the page has loaded)</label> 
                                 </div>
                             </ha-formfield>
-                            <ha-formfield .label="可选 - 高亮当前哈希/视图">
+                            <ha-formfield .label="Optional - Highlight current hash / view">
                                 <ha-switch
-                                    aria-label="可选 - 高亮当前哈希/视图"
+                                    aria-label="Optional - Highlight current hash / view"
                                     .checked=${e._config?.highlight_current_view||!1}
                                     .configValue="${"highlight_current_view"}"
                                     @change=${e._valueChanged}
                                 ></ha-switch>
                                 <div class="mdc-form-field">
-                                    <label class="mdc-label">可选 - 高亮当前哈希/视图</label> 
+                                    <label class="mdc-label">Optional - Highlight current hash / view</label> 
                                 </div>
                             </ha-formfield>
-                            <ha-formfield .label="可选 - 隐藏渐变">
+                            <ha-formfield .label="Optional - Hide gradient">
                                 <ha-switch
-                                    aria-label="可选 - 隐藏渐变"
+                                    aria-label="Optional - Hide gradient"
                                     .checked=${e._config.hide_gradient||!1}
                                     .configValue="${"hide_gradient"}"
                                     @change=${e._valueChanged}
                                 ></ha-switch>
                                 <div class="mdc-form-field">
-                                    <label class="mdc-label">可选 - 隐藏渐变</label> 
+                                    <label class="mdc-label">Optional - Hide gradient</label> 
                                 </div>
                             </ha-formfield>
                         </div>
@@ -2520,19 +2520,19 @@
                 </h4>
                 <div class="content"> 
                     <ha-textfield
-                        label="可选 - 开启服务（默认为 cover.open_cover）"
+                        label="Optional - Open service (cover.open_cover by default)"
                         .value="${e._config?.open_service||"cover.open_cover"}"
                         .configValue="${"open_service"}"
                         @input="${e._valueChanged}"
                     ></ha-textfield>
                     <ha-textfield
-                        label="可选 - 停止服务（默认为 cover.stop_cover）"
+                        label="Optional - Stop service (cover.stop_cover by default)"
                         .value="${e._config?.stop_service||"cover.stop_cover"}"
                         .configValue="${"stop_service"}"
                         @input="${e._valueChanged}"
                     ></ha-textfield>
                     <ha-textfield
-                        label="可选 - 关闭服务（默认为 cover.close_cover）"
+                        label="Optional - Close service (cover.close_cover by default)"
                         .value="${e._config?.close_service||"cover.close_cover"}"
                         .configValue="${"close_service"}"
                         @input="${e._valueChanged}"
@@ -2735,15 +2735,15 @@
                           媒体播放器样式
                         </h4>
                         <div class="content"> 
-                            <ha-formfield .label="可选 - 将媒体封面模糊作为背景">
+                            <ha-formfield .label="Optional - Blurred media cover in background">
                                 <ha-switch
-                                    aria-label="可选 - 将媒体封面模糊作为背景"
+                                    aria-label="Optional - Blurred media cover in background"
                                     .checked=${e._config.cover_background??!1}
                                     .configValue="${"cover_background"}"
                                     @change=${e._valueChanged}
                                 ></ha-switch>
                                 <div class="mdc-form-field">
-                                    <label class="mdc-label">可选 - 将媒体封面模糊作为背景</label> 
+                                    <label class="mdc-label">Optional - Blurred media cover in background</label> 
                                 </div>
                             </ha-formfield>
                         </div>
@@ -2920,28 +2920,28 @@
                         @value-changed=${e._valueChanged}
                     ></ha-form>
                     ${e.hass.states[e._config.entity]?.attributes?.target_temp_low?c.qy`
-                        <ha-formfield .label="可选 - 隐藏目标低温">
+                        <ha-formfield .label="Optional - Hide target temp low">
                             <ha-switch
-                                aria-label="可选 - 隐藏目标低温"
+                                aria-label="Optional - Hide target temp low"
                                 .checked=${e._config.hide_target_temp_low}
                                 .configValue="${"hide_target_temp_low"}"
                                 @change=${e._valueChanged}
                             ></ha-switch>
                             <div class="mdc-form-field">
-                                <label class="mdc-label">可选 - 隐藏目标低温</label> 
+                                <label class="mdc-label">Optional - Hide target temp low</label> 
                             </div>
                         </ha-formfield>
                     `:""}
                     ${e.hass.states[e._config.entity]?.attributes?.target_temp_high?c.qy`
-                        <ha-formfield .label="可选 - 隐藏目标高温">
+                        <ha-formfield .label="Optional - Hide target temp high">
                             <ha-switch
-                                aria-label="可选 - 隐藏目标高温"
+                                aria-label="Optional - Hide target temp high"
                                 .checked=${e._config.hide_target_temp_high}
                                 .configValue="${"hide_target_temp_high"}"
                                 @change=${e._valueChanged}
                             ></ha-switch>
                             <div class="mdc-form-field">
-                                <label class="mdc-label">可选 - 隐藏目标高温</label> 
+                                <label class="mdc-label">Optional - Hide target temp high</label> 
                             </div>
                         </ha-formfield>
                     `:""}
@@ -2956,15 +2956,15 @@
                             <label class="mdc-label">可选 - 隐藏温度控制</label> 
                         </div>
                     </ha-formfield>
-                    <ha-formfield .label="可选 - 开启时保持恒定背景色">
+                    <ha-formfield .label="Optional - Constant background color when ON">
                         <ha-switch
-                            aria-label="可选 - 开启时保持恒定背景色"
+                            aria-label="Optional - Constant background color when ON"
                             .checked=${!0===e._config.state_color}
                             .configValue="${"state_color"}"
                             @change=${e._valueChanged}
                         ></ha-switch>
                         <div class="mdc-form-field">
-                            <label class="mdc-label">可选 - 开启时保持恒定背景色</label> 
+                            <label class="mdc-label">Optional - Constant background color when ON</label> 
                         </div>
                     </ha-formfield>
                 </div>
@@ -3245,15 +3245,15 @@
             </ha-expansion-panel>
         `}makeShowState(e=this._config,t="",n=!1,o){const i=e?.entity??this._config.entity??"",a="name"===this._config.button_type,r=i?.startsWith("input_select")||i?.startsWith("select")||e.select_attribute,s="sub_button"===n||"string"==typeof n&&n.startsWith("sub_button"),l=s&&("select"===e?.sub_button_type||!e?.sub_button_type&&r),d=e?.show_attribute?Object.keys(this.hass.states[i]?.attributes||{}).map(e=>{let t=this.hass.states[i];return{label:this.hass.formatEntityAttributeName(t,e),value:e}}):[];return c.qy`
 
-            <ha-formfield .label="Text scrolling effect">
+            <ha-formfield .label="文本滚动效果">
                 <ha-switch
-                    aria-label="Text scrolling effect"
+                    aria-label="文本滚动效果"
                     .checked=${e?.scrolling_effect??!0}
                     .configValue="${t+"scrolling_effect"}"
                     @change="${n?e=>this._arrayValueChange(o,{scrolling_effect:e.target.checked},n):this._valueChanged}"
                 ></ha-switch>
                 <div class="mdc-form-field">
-                    <label class="mdc-label">Text scrolling effect</label> 
+                    <label class="mdc-label">文本滚动效果</label> 
                 </div>
             </ha-formfield>
             ${this._renderConditionalContent(s,c.qy`
@@ -3305,86 +3305,86 @@
                     </div>
                 </ha-formfield>
             `)}
-            <ha-formfield .label="Show icon">
+            <ha-formfield .label="显示图标">
                 <ha-switch
-                    aria-label="Show icon"
+                    aria-label="显示图标"
                     .checked=${e?.show_icon??!0}
                     .configValue="${t+"show_icon"}"
                     @change="${n?e=>this._arrayValueChange(o,{show_icon:e.target.checked},n):this._valueChanged}"
                 ></ha-switch>
                 <div class="mdc-form-field">
-                    <label class="mdc-label">Show icon</label> 
+                    <label class="mdc-label">显示图标</label> 
                 </div>
             </ha-formfield>
-            <ha-formfield .label="Prioritize icon over entity picture">
+            <ha-formfield .label="图标优先于实体图片">
                 <ha-switch
-                    aria-label="Prioritize icon over entity picture"
+                    aria-label="图标优先于实体图片"
                     .checked=${e?.force_icon??!1}
                     .configValue="${t+"force_icon"}"
                     .disabled="${a&&!s}"
                     @change="${n?e=>this._arrayValueChange(o,{force_icon:e.target.checked},n):this._valueChanged}"
                 ></ha-switch>
                 <div class="mdc-form-field">
-                    <label class="mdc-label">Prioritize icon over entity picture</label> 
+                    <label class="mdc-label">图标优先于实体图片</label> 
                 </div>
             </ha-formfield>
-            <ha-formfield .label="Show name">
+            <ha-formfield .label="显示名称">
                 <ha-switch
-                    aria-label="Show name"
+                    aria-label="显示名称"
                     .checked=${e?.show_name??!s}
                     .configValue="${t+"show_name"}"
                     @change="${n?e=>this._arrayValueChange(o,{show_name:e.target.checked},n):this._valueChanged}"
                 ></ha-switch>
                 <div class="mdc-form-field">
-                    <label class="mdc-label">Show name</label> 
+                    <label class="mdc-label">显示名称</label> 
                 </div>
             </ha-formfield>
-            <ha-formfield .label="Show entity state">
+            <ha-formfield .label="显示实体状态">
                 <ha-switch
-                    aria-label="Show entity state"
+                    aria-label="显示实体状态"
                     .checked="${e?.show_state??"state"===e.button_type}"
                     .configValue="${t+"show_state"}"
                     .disabled="${a&&!s}"
                     @change="${n?e=>this._arrayValueChange(o,{show_state:e.target.checked},n):this._valueChanged}"
                 ></ha-switch>
                 <div class="mdc-form-field">
-                    <label class="mdc-label">Show entity state</label> 
+                    <label class="mdc-label">显示实体状态</label> 
                 </div>
             </ha-formfield>
-            <ha-formfield .label="Show last changed">
+            <ha-formfield .label="显示上次更改时间">
                 <ha-switch
-                    aria-label="Show last changed"
+                    aria-label="显示上次更改时间"
                     .checked=${e?.show_last_changed}
                     .configValue="${t+"show_last_changed"}"
                     .disabled="${a&&!s}"
                     @change="${n?e=>this._arrayValueChange(o,{show_last_changed:e.target.checked},n):this._valueChanged}"
                 ></ha-switch>
                 <div class="mdc-form-field">
-                    <label class="mdc-label">Show last changed</label> 
+                    <label class="mdc-label">显示上次更改时间</label> 
                 </div>
             </ha-formfield>
-            <ha-formfield .label="Show last updated">
+            <ha-formfield .label="显示上次更新时间">
                 <ha-switch
-                    aria-label="Show last updated"
+                    aria-label="显示上次更新时间"
                     .checked=${e?.show_last_updated}
                     .configValue="${t+"show_last_updated"}"
                     .disabled="${a&&!s}"
                     @change="${n?e=>this._arrayValueChange(o,{show_last_updated:e.target.checked},n):this._valueChanged}"
                 ></ha-switch>
                 <div class="mdc-form-field">
-                    <label class="mdc-label">Show last updated</label> 
+                    <label class="mdc-label">显示上次更新时间</label> 
                 </div>
             </ha-formfield>
-            <ha-formfield .label="Show attribute">
+            <ha-formfield .label="显示属性">
                 <ha-switch
-                    aria-label="Show attribute"
+                    aria-label="显示属性"
                     .checked=${e?.show_attribute}
                     .configValue="${t+"show_attribute"}"
                     .disabled="${a&&!s}"
                     @change="${n?e=>this._arrayValueChange(o,{show_attribute:e.target.checked},n):this._valueChanged}"
                 ></ha-switch>
                 <div class="mdc-form-field">
-                    <label class="mdc-label">Show attribute</label> 
+                    <label class="mdc-label">显示属性</label> 
                 </div>
             </ha-formfield>
             ${this._renderConditionalContent(e?.show_attribute,c.qy`
